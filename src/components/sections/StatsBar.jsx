@@ -4,7 +4,7 @@ import { STATS } from '../../data';
 export function StatsBar({ isMobile }) {
   return (
     <Reveal>
-      <div id="stats" style={{ maxWidth: 1000, margin: "0 auto", padding: "0 24px 40px" }}>
+      <div id="stats" style={{ maxWidth: 1000, margin: "0 auto", padding: "0 24px 40px", scrollMarginTop: 100 }}>
         <div
           style={{
             background: "#1a1a2e",

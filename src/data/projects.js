@@ -12,18 +12,102 @@ export const PROJECTS = [
     color: "#FF6B35",
     accent: "#FFE0D0",
     tag: "Enterprise AI",
-    thumbnail: "/projects/gordian-ai-thumbnail.png",
+    tags: ["Enterprise AI", "Azure OpenAI", "Data Migration", "Cost Optimization"],
+    tools: ["Azure OpenAI", "Azure Application Insights", "LLM", "Vector Embeddings", "Grafana"],
+    thumbnail: "/case-studies/gordian-ai/with-llm.png",
+    hasAlgorithmBreakdown: true,
+    team: {
+      engineers: 5,
+      designers: 1,
+      productManagers: 1,
+      timeline: "3 Month MVP → 12 Month Full Deployment"
+    },
     stats: [
       { label: "Cost Reduction", value: "88%" },
-      { label: "New Revenue", value: "$12M" },
+      { label: "Coverage", value: "93%" },
       { label: "Gov Clients", value: "100+" }
     ],
     description:
-      "An AI-powered migration system using Azure OpenAI and vector embeddings that transformed how government clients onboard to a $60M+ enterprise platform. Reduced costs from $180K to $20K per migration.",
+      "AI-powered data pipeline using Azure OpenAI and vector embeddings for semantic matching. Transformed client onboarding for a $60M+ enterprise platform, reducing migration costs from $180K to $20K per client.",
+    outcome: "Shipped to production serving 100+ government clients. 88% cost reduction in Professional Services hours while achieving 93% automated coverage.",
+    process: [
+      {
+        type: "research",
+        title: "The Problem",
+        description: "Two problems were blocking growth. First, Professional Services was spending 3-4 months per enterprise client migrating legacy cost data into our standard format. At $180K per migration, this was killing deal margins. Second, we couldn't onboard mid-market clients at all. If a client's ARR was $60K but onboarding cost $180K, the deal math didn't work. Reducing onboarding to $20K would open up an entirely new market segment. The data challenge: clients had decades of construction cost data in proprietary formats, with thousands of line items that needed mapping to our 48M+ item database.",
+      },
+      {
+        type: "interviews",
+        title: "Getting Buy-In",
+        description: "AI projects in enterprise software face heavy skepticism, especially with government clients. I proposed a limited POC: one client's dataset, one analyst, two-week timebox. Success criteria: 70% automated coverage with 95% accuracy on matched items. The POC exceeded targets, giving us the evidence to secure engineering resources and exec sponsorship for full build.",
+      },
+      {
+        type: "research",
+        title: "Customer Interviews",
+        description: "Sat through sales calls with customers to understand their needs and pain points. Reviewed their sample datasets to identify patterns and edge cases. Met with Sales and Professional Services teams to identify beachhead customers who would be early adopters and provide feedback during development.",
+      },
+      {
+        type: "design",
+        title: "Architecture",
+        description: "Built a tiered AI approach: vector embeddings for semantic similarity (finding similar items in our database), LLM routing for edge cases (ambiguous items routed to GPT-4 for reasoning), and human-in-the-loop QC (analysts validate AI suggestions with one-click approval). The key insight was that not every item needs the most expensive model. Routing logic determines the optimal path.",
+      },
+      {
+        type: "prioritize",
+        title: "Scaling & Optimization",
+        description: "As we scaled, costs became critical. I ran benchmarks across model tiers (GPT-4 vs GPT-3.5-turbo vs embeddings-only) to find the optimal cost/accuracy tradeoff. Implemented semantic caching: if we've seen a similar item before, skip the API call. Built telemetry dashboards to track cost-per-migration and catch regressions early. Result: 70% reduction in token usage while maintaining accuracy.",
+      },
+    ],
+    sections: [
+      {
+        title: "Why LLMs?",
+        content: "Rule-based systems fail on messy real-world data. Construction items come with typos, abbreviations, and inconsistent naming. Traditional string matching marks 'Air Hndling Unt' as no match. LLMs understand semantic similarity and know it's the same as 'Air Handling Unit' despite the typo.",
+        beforeImage: "/case-studies/gordian-ai/without-llm.png",
+        afterImage: "/case-studies/gordian-ai/with-llm.png",
+        beforeLabel: "Without LLM",
+        afterLabel: "With LLM",
+        caption: "Same input data, dramatically different results. LLMs handle variations, typos, and edge cases that break rule-based systems.",
+      },
+      {
+        title: "Routing Logic",
+        content: "Not every item needs the same treatment. High-confidence matches go through fast embedding lookups. Edge cases get routed to more expensive LLM reasoning. The multi-stage pipeline optimizes for both accuracy and cost.",
+        imageUrl: "/case-studies/gordian-ai/llm-routing.png",
+        caption: "Multi-stage routing: items flow through increasingly sophisticated matching until resolved.",
+      },
+      {
+        title: "The Data Funnel",
+        content: "See how items flow through the migration pipeline. Each stage filters and processes data, progressively matching items to our database.",
+        carousel: [
+          "/case-studies/gordian-ai/car1.png",
+          "/case-studies/gordian-ai/car2.png",
+          "/case-studies/gordian-ai/car3.png",
+        ],
+        caption: "Interactive visualization of items flowing through the multi-stage matching pipeline.",
+      },
+    ],
+    clients: [
+      { name: "Google", logo: "/case-studies/gordian-ai/logos/google.png" },
+      { name: "DND Canada", logo: "/case-studies/gordian-ai/logos/dnd.png" },
+      { name: "Harvard", logo: "/case-studies/gordian-ai/logos/harvard.png" },
+      { name: "Johnson & Johnson", logo: "/case-studies/gordian-ai/logos/jnj.png" },
+      { name: "Kenvue", logo: "/case-studies/gordian-ai/logos/kenvue.svg" },
+      { name: "Mesa", logo: "/case-studies/gordian-ai/logos/mesa.png" },
+      { name: "Sodexo", logo: "/case-studies/gordian-ai/logos/sodexo.svg" },
+      { name: "ABM", logo: "/case-studies/gordian-ai/logos/abm.png" },
+      { name: "BCME", logo: "/case-studies/gordian-ai/logos/bcme.png" },
+      { name: "BSO", logo: "/case-studies/gordian-ai/logos/bso.png" },
+      { name: "OEDU", logo: "/case-studies/gordian-ai/logos/oedu.png" },
+      { name: "SFSD", logo: "/case-studies/gordian-ai/logos/sfsd.webp" },
+      { name: "Walgreens", logo: "/case-studies/gordian-ai/logos/walgreen.png" },
+    ],
+    insights: [
+      "Start with a constrained POC that proves value quickly. Two weeks beat six months of planning",
+      "Not every AI task needs GPT-4. Smart routing between model tiers cut costs by 70% without sacrificing accuracy",
+      "Human-in-the-loop isn't a fallback, it's the feature. Analysts trust the system because they stay in control"
+    ],
     highlights: [
-      "Optimized token usage by 70% through prompt engineering and caching",
-      "Built telemetry dashboards with KQL & Grafana for real-time monitoring",
-      "Scaled QC features adopted by Google and Canadian DoD"
+      "Owned full product lifecycle: discovery, requirements, architecture, delivery, and iteration",
+      "Built telemetry dashboards with Azure Application Insights & Grafana for real-time cost monitoring",
+      "QC features later adopted by Google and Canadian Department of Defence"
     ]
   },
   // 2. Gordian Enterprise Data Platform
@@ -35,18 +119,74 @@ export const PROJECTS = [
     color: "#8B5CF6",
     accent: "#EDE9FE",
     tag: "Enterprise SaaS",
+    tags: ["Enterprise SaaS", "Gov-tech", "Data Platform", "B2G"],
+    tools: ["Azure Application Insights", "Grafana", "Jira", "Figma", "SQL Server"],
     thumbnail: "/projects/gordian-platform-thumbnail.png",
+    team: {
+      engineers: 8,
+      designers: 2,
+      qa: 2,
+      productManagers: 1,
+      timeline: "5+ Years (2022-Present)"
+    },
     stats: [
-      { label: "Revenue", value: "$60M+" },
-      { label: "Clients", value: "100+" },
-      { label: "Data Points", value: "48M+" }
+      { label: "ARR Protected", value: "$48M+" },
+      { label: "DAU Increase", value: "25%" },
+      { label: "Experiments", value: "12+" }
     ],
     description:
-      "Led product strategy for Gordian's flagship construction cost data platform serving government and enterprise clients. Managed the full product lifecycle from discovery to delivery across web, API, and data products.",
+      "Led product strategy for Gordian's flagship construction cost data platform serving 100+ government and enterprise clients. Ran 12+ experiments that drove a roadmap pivot, boosting DAU by 25% and protecting $48M+ in at-risk ARR through data quality features.",
+    outcome: "Transformed a legacy platform into a data-driven product organization. Protected $48M+ in renewal revenue while increasing daily active usage by 25%.",
+    process: [
+      {
+        type: "research",
+        title: "The Challenge",
+        description: "Gordian's RSMeans platform is the industry standard for construction cost data, serving 100+ government clients and enterprises. But after years of feature-driven development, the product had accumulated significant technical debt and UX friction. Clients were churning, and we lacked visibility into why. My mandate: transform the product organization from reactive to data-driven.",
+      },
+      {
+        type: "interviews",
+        title: "Building the Telemetry Foundation",
+        description: "You cannot improve what you cannot measure. I partnered with engineering to instrument the platform with Azure Application Insights. We built dashboards tracking feature adoption, user flows, and drop-off points. For the first time, we could see which features clients actually used versus which ones we assumed they valued.",
+      },
+      {
+        type: "research",
+        title: "Discovering the Real Problems",
+        description: "The telemetry revealed surprising patterns. Features we had invested heavily in had <5% adoption. Meanwhile, a basic data export function was used by 80% of clients daily. We conducted 30+ customer interviews to understand the gap between our roadmap and client needs. The core insight: clients did not need more features. They needed cleaner data and faster workflows.",
+      },
+      {
+        type: "prioritize",
+        title: "The Roadmap Pivot",
+        description: "Armed with data, I proposed a controversial pivot: pause new feature development and focus entirely on data quality and core workflow optimization. I ran 12+ A/B experiments to validate hypotheses before committing engineering resources. Each experiment had clear success metrics and a two-week timebox. The experiments gave us confidence to make the pivot.",
+      },
+      {
+        type: "design",
+        title: "Data Quality as a Feature",
+        description: "We built a data validation layer that caught errors before they reached clients. Implemented real-time data quality scores visible to both internal teams and clients. Created automated alerts for data anomalies. These unglamorous features became our biggest retention drivers.",
+      },
+    ],
+    sections: [
+      {
+        title: "Feature Usage Tracking",
+        content: "I built dashboards tracking unique feature usage across the platform. Q4 2025 data revealed clear patterns: GCP Data and VFA Data were the most-used features, while MIQ and SnapShot had minimal adoption. This data directly informed our Q1 2026 roadmap priorities.",
+        charts: "usage",
+        caption: "Interactive visualization: Hover over bars and pie slices to explore the data. Numbers hidden for confidentiality.",
+      },
+      {
+        title: "Experiment-Driven Development",
+        content: "Telemetry revealed a critical problem: only 40% of users completed the full workflow. Major drop-offs occurred at 'Run Algorithm' (users waited too long for processing) and 'Download Report' (large files timed out). I ran two experiments: (1) Added algorithm presets for common use cases, and (2) Moved large data processing to cloud with email notifications when complete. Result: completion rate jumped from 40% to 84%.",
+        charts: "dropoff",
+        caption: "Interactive before/after: Toggle to see how experiments improved workflow completion by 110%.",
+      },
+    ],
+    insights: [
+      "Telemetry is not optional for enterprise products. You cannot make good decisions without data on actual usage",
+      "Sometimes the best product work is removing features, not adding them. Simplification drove our biggest adoption gains",
+      "Data quality is invisible when it works and catastrophic when it fails. Investing in unglamorous infrastructure paid off in retention"
+    ],
     highlights: [
-      "Owned product roadmap for $60M+ enterprise platform",
-      "Launched new pricing module increasing deal sizes by 25%",
-      "Led cross-functional team of 12 engineers and designers"
+      "Built telemetry infrastructure from scratch with Azure Application Insights and Grafana",
+      "Ran 12+ controlled experiments to validate roadmap decisions before committing resources",
+      "Protected $48M+ in at-risk ARR by prioritizing data quality over new features"
     ]
   },
   // 3. Natural Assets Platform - Novion
@@ -98,7 +238,7 @@ export const PROJECTS = [
   // 5. SpareHub - Fleet Manager
   {
     id: "sparehub",
-    title: "SpareHub: Fleet Manager for Transit",
+    title: "SpareHub: Fleet Manager",
     company: "Product Concept",
     productLabel: "Product Concept",
     color: "#3B82F6",

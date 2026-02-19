@@ -400,6 +400,31 @@ export function ExperienceDrawer({ isOpen, experience, onClose }) {
                 </div>
               )}
 
+              {/* Case Study Note */}
+              {details?.caseStudyNote && (
+                <div
+                  style={{
+                    marginBottom: 28,
+                    padding: '14px 18px',
+                    background: `${exp.color}08`,
+                    borderRadius: 12,
+                    borderLeft: `4px solid ${exp.color}`,
+                  }}
+                >
+                  <p
+                    style={{
+                      fontFamily: "'DM Sans'",
+                      fontSize: 13,
+                      color: '#666',
+                      margin: 0,
+                      fontWeight: 500,
+                    }}
+                  >
+                    {details.caseStudyNote}
+                  </p>
+                </div>
+              )}
+
               {/* Links */}
               {details?.links && details.links.length > 0 && (
                 <div style={{ marginBottom: 28 }}>

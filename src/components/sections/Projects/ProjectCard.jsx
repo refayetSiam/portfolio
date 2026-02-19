@@ -211,22 +211,80 @@ export function ProjectCard({ project, index, onOpenProject }) {
             ))}
           </div>
 
-          {/* Description */}
-          <p
-            style={{
-              fontFamily: "'DM Sans'",
-              fontSize: 14,
-              color: "#666",
-              lineHeight: 1.6,
-              margin: 0,
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
-            {project.description}
-          </p>
+          {/* Feature Tags */}
+          {(project.loomUrl || project.demoUrl || project.hasAlgorithmBreakdown) && (
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
+              {project.hasAlgorithmBreakdown && (
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 4,
+                    background: "#FFF7ED",
+                    color: "#EA580C",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    padding: "5px 10px",
+                    borderRadius: 6,
+                  }}
+                >
+                  <span style={{ fontSize: 12 }}>🔬</span> Algorithm Breakdown
+                </span>
+              )}
+              {project.demoUrl && (
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 4,
+                    background: "#EEF2FF",
+                    color: "#4F46E5",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    padding: "5px 10px",
+                    borderRadius: 6,
+                  }}
+                >
+                  <span style={{ fontSize: 12 }}>🎮</span> Interactive Demo
+                </span>
+              )}
+              {project.loomUrl && (
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 4,
+                    background: "#FDF4FF",
+                    color: "#A855F7",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    padding: "5px 10px",
+                    borderRadius: 6,
+                  }}
+                >
+                  <span style={{ fontSize: 12 }}>🎥</span> Loom Video
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* View Details Link */}
+          {project.process && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                color: project.color,
+                fontSize: 12,
+                fontWeight: 600,
+                marginTop: 4,
+              }}
+            >
+              <span>View Case Study</span>
+              <ArrowRight size={14} />
+            </div>
+          )}
         </div>
       </div>
     </Reveal>

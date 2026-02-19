@@ -188,7 +188,7 @@ export const TIMELINE = [
       { value: "12+", label: "Experiments" }
     ],
     details: {
-      duration: "2+ years",
+      duration: "5+ years",
       location: "Vancouver, BC (Remote)",
       team: "Cross-functional team of 12 (engineers, designers, QA, stakeholders)",
       responsibilities: [
@@ -202,7 +202,7 @@ export const TIMELINE = [
         { metric: "$48M+", description: "At-risk ARR protected through data quality features" },
         { metric: "12+", description: "Product experiments run to validate roadmap" }
       ],
-      tools: ["KQL", "Grafana", "Jira", "Figma", "SQL Server"],
+      tools: ["Azure Application Insights", "Grafana", "Jira", "Figma", "SQL Server"],
       links: [
         { label: "Company", url: "https://gordian.com" }
       ]
@@ -219,8 +219,8 @@ export const TIMELINE = [
     color: "#8B5CF6",
     logo: "gordian",
     summary:
-      "Launched an AI migration engine using Azure OpenAI and RAG that cut migration costs by 88% ($180K to $20K per migration), unlocking $12M in new revenue.",
-    tags: ["Azure OpenAI", "RAG", "Enterprise AI", "Cost Optimization"],
+      "Launched an AI data pipeline using Azure OpenAI and vector embeddings that cut migration costs by 88% ($180K to $20K per migration), unlocking $12M in new revenue.",
+    tags: ["Azure OpenAI", "LLM", "Enterprise AI", "Cost Optimization"],
     metrics: [
       { value: "88%", label: "Cost Cut" },
       { value: "$12M", label: "Revenue Unlocked" }
@@ -228,21 +228,23 @@ export const TIMELINE = [
     details: {
       duration: "Ongoing",
       location: "Vancouver, BC (Remote)",
-      team: "Cross-functional team of 12 (engineers, designers, QA, stakeholders)",
+      team: "5 Engineers, 1 Designer, 1 PM (Me)",
       responsibilities: [
-        "Led discovery and validation for AI-powered migration engine initiative",
-        "Built RAG pipeline with Azure OpenAI for automated data migration",
+        "Led discovery and validation for AI-powered data pipeline initiative",
+        "Built tiered AI pipeline with Azure OpenAI for automated data migration",
         "Reduced migration costs from $180K to $20K per migration",
-        "Unlocked $12M in new revenue through enterprise AI features"
+        "Unlocked mid-market segment through reduced onboarding costs"
       ],
       achievements: [
         { metric: "88%", description: "Cost reduction through AI migration engine ($180K to $20K per migration)" },
-        { metric: "$12M", description: "New revenue unlocked through enterprise AI features" }
+        { metric: "$12M", description: "New revenue unlocked through mid-market expansion" },
+        { metric: "93%", description: "Automated coverage achieved" }
       ],
-      tools: ["Azure OpenAI", "RAG", "Python", "SQL Server", "KQL"],
+      tools: ["Azure OpenAI", "Azure Application Insights", "LLM", "Vector Embeddings", "Grafana", "Python"],
       links: [
         { label: "Company", url: "https://gordian.com" }
-      ]
+      ],
+      caseStudyNote: "Full case study available in Work section"
     }
   }
 ];

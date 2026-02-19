@@ -2,7 +2,7 @@ import { Reveal } from '../common';
 
 export function Contact({ isMobile }) {
   return (
-    <section id="contact" style={{ padding: "0 24px 120px" }}>
+    <section id="contact" style={{ padding: "0 24px 120px", scrollMarginTop: 80 }}>
       <Reveal>
         <div
           style={{

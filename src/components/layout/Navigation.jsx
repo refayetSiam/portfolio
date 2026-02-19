@@ -1,10 +1,6 @@
 export function Navigation({ visible }) {
-  const scrollToWithOffset = (id, offset = 100) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const y = element.getBoundingClientRect().top + window.pageYOffset - offset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -26,13 +22,13 @@ export function Navigation({ visible }) {
       }}
     >
       {[
-        ["stats", "Journey", 100],
-        ["work", "Work", 80],
-        ["contact", "Contact", 80]
-      ].map(([id, label, offset]) => (
+        ["stats", "Journey"],
+        ["work", "Work"],
+        ["contact", "Contact"]
+      ].map(([id, label]) => (
         <button
           key={id}
-          onClick={() => scrollToWithOffset(id, offset)}
+          onClick={() => scrollToSection(id)}
           style={{
             background: "transparent",
             border: "none",

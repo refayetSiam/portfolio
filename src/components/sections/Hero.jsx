@@ -1,5 +1,7 @@
 export function Hero() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <section
@@ -98,13 +100,7 @@ export function Hero() {
           }}
         >
           <button
-            onClick={() => {
-              const element = document.getElementById('stats');
-              if (element) {
-                const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
-                window.scrollTo({ top: y, behavior: 'smooth' });
-              }
-            }}
+            onClick={() => scrollToSection('stats')}
             style={{
               fontFamily: "'DM Sans'",
               fontSize: 16,
@@ -129,7 +125,7 @@ export function Hero() {
             My journey
           </button>
           <button
-            onClick={() => scrollTo("contact")}
+            onClick={() => scrollToSection("contact")}
             style={{
               fontFamily: "'DM Sans'",
               fontSize: 16,
@@ -156,13 +152,7 @@ export function Hero() {
         </div>
 
         <p
-          onClick={() => {
-            const element = document.getElementById('stats');
-            if (element) {
-              const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
-              window.scrollTo({ top: y, behavior: 'smooth' });
-            }
-          }}
+          onClick={() => scrollToSection('stats')}
           style={{
             fontFamily: "'Caveat', cursive",
             fontSize: 22,

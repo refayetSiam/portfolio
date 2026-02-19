@@ -1,11 +1,18 @@
-import { useEffect, useRef } from 'react';
-import { ArrowLeft, CheckCircle2, ExternalLink, Target, TrendingUp, Users, Layers, BarChart3 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, CheckCircle2, ExternalLink, Target, TrendingUp, Users, Layers, BarChart3, Calendar, Clock, Award } from 'lucide-react';
 import { useScrollLock } from '../../../hooks';
+import { UsageBarChart, UsagePieChart, DropOffFunnelChart } from '../../charts';
 
 export function ProjectPage({ isOpen, project, onClose }) {
   const pageRef = useRef(null);
+  const [carouselIndices, setCarouselIndices] = useState({});
 
   useScrollLock(isOpen);
+
+  // Reset carousel indices when project changes
+  useEffect(() => {
+    setCarouselIndices({});
+  }, [project?.id]);
 
   // Handle escape key
   useEffect(() => {
@@ -47,6 +54,9 @@ export function ProjectPage({ isOpen, project, onClose }) {
     design: BarChart3,
     outcome: CheckCircle2,
   };
+
+  // Check if project has detailed case study content
+  const hasDetailedContent = p.process || p.sections || p.team;
 
   return (
     <>
@@ -104,94 +114,340 @@ export function ProjectPage({ isOpen, project, onClose }) {
           </button>
         </header>
 
-        {/* Hero Section */}
+        {/* Hero Section - Two Column Layout */}
         <section
           style={{
             maxWidth: 1200,
             margin: '0 auto',
-            padding: '80px 48px 60px',
+            padding: '60px 48px 40px',
+            display: 'grid',
+            gridTemplateColumns: hasDetailedContent ? '1fr 320px' : '1fr',
+            gap: 48,
+            alignItems: 'start',
           }}
         >
-          {/* Labels */}
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 24 }}>
-            {p.productLabel && (
+          {/* Left Column - Title & Description */}
+          <div>
+            {/* Labels */}
+            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 20 }}>
+              {p.productLabel && (
+                <span
+                  style={{
+                    display: 'inline-block',
+                    background: labelStyles.bg,
+                    color: labelStyles.color,
+                    fontSize: 12,
+                    fontWeight: 700,
+                    padding: '6px 16px',
+                    borderRadius: 100,
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {p.productLabel}
+                </span>
+              )}
               <span
                 style={{
                   display: 'inline-block',
-                  background: labelStyles.bg,
-                  color: labelStyles.color,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  padding: '6px 16px',
-                  borderRadius: 100,
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {p.productLabel}
-              </span>
-            )}
-          </div>
-
-          {/* Title */}
-          <h1
-            style={{
-              fontFamily: "'Outfit'",
-              fontSize: 'clamp(40px, 6vw, 72px)',
-              fontWeight: 800,
-              color: '#1a1a2e',
-              margin: '0 0 24px',
-              lineHeight: 1.1,
-              maxWidth: 900,
-            }}
-          >
-            {p.title}
-          </h1>
-
-          {/* Tags */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 40 }}>
-            {(p.tags || [p.tag]).map((tag, i) => (
-              <span
-                key={i}
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: '#666',
                   background: '#f5f5f5',
+                  color: '#666',
+                  fontSize: 12,
+                  fontWeight: 600,
                   padding: '6px 16px',
                   borderRadius: 100,
                 }}
               >
-                {tag}
+                {p.company}
               </span>
-            ))}
+            </div>
+
+            {/* Title */}
+            <h1
+              style={{
+                fontFamily: "'Outfit'",
+                fontSize: 'clamp(40px, 5vw, 64px)',
+                fontWeight: 800,
+                color: '#1a1a2e',
+                margin: '0 0 24px',
+                lineHeight: 1.1,
+              }}
+            >
+              {p.title}
+            </h1>
+
+            {/* Tags */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 32 }}>
+              {(p.tags || [p.tag]).map((tag, i) => (
+                <span
+                  key={i}
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: p.color,
+                    background: `${p.color}12`,
+                    padding: '6px 16px',
+                    borderRadius: 100,
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* Problem Statement / Description */}
+            <p
+              style={{
+                fontFamily: "'DM Sans'",
+                fontSize: 20,
+                color: '#555',
+                lineHeight: 1.7,
+                margin: 0,
+              }}
+            >
+              {p.description}
+            </p>
           </div>
 
-          {/* Problem Statement / Description */}
-          <p
-            style={{
-              fontFamily: "'DM Sans'",
-              fontSize: 20,
-              color: '#555',
-              lineHeight: 1.7,
-              maxWidth: 800,
-              margin: 0,
-            }}
-          >
-            {p.description}
-          </p>
+          {/* Right Column - Metrics Card */}
+          {hasDetailedContent && (
+            <div
+              style={{
+                background: '#fafafa',
+                borderRadius: 20,
+                padding: '28px',
+                border: '1px solid #eee',
+              }}
+            >
+              {/* Impact Stats */}
+              {p.stats && (
+                <div style={{ marginBottom: 24 }}>
+                  <h3
+                    style={{
+                      fontFamily: "'Outfit'",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      color: '#999',
+                      margin: '0 0 16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}
+                  >
+                    <Award size={14} />
+                    Impact
+                  </h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {p.stats.map((stat, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
+                        <span
+                          style={{
+                            fontFamily: "'Outfit'",
+                            fontSize: 28,
+                            fontWeight: 800,
+                            color: p.color,
+                            lineHeight: 1,
+                          }}
+                        >
+                          {stat.value}
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "'DM Sans'",
+                            fontSize: 13,
+                            color: '#666',
+                            fontWeight: 500,
+                          }}
+                        >
+                          {stat.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Team Composition */}
+              {p.team && (
+                <div style={{ marginBottom: 24 }}>
+                  <h3
+                    style={{
+                      fontFamily: "'Outfit'",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      color: '#999',
+                      margin: '0 0 12px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}
+                  >
+                    <Users size={14} />
+                    Team
+                  </h3>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                    {p.team.engineers > 0 && (
+                      <span
+                        style={{
+                          background: '#fff',
+                          border: '1px solid #e0e0e0',
+                          borderRadius: 6,
+                          padding: '6px 10px',
+                          fontFamily: "'DM Sans'",
+                          fontSize: 12,
+                          color: '#555',
+                          fontWeight: 500,
+                        }}
+                      >
+                        {p.team.engineers} Engineers
+                      </span>
+                    )}
+                    {p.team.designers > 0 && (
+                      <span
+                        style={{
+                          background: '#fff',
+                          border: '1px solid #e0e0e0',
+                          borderRadius: 6,
+                          padding: '6px 10px',
+                          fontFamily: "'DM Sans'",
+                          fontSize: 12,
+                          color: '#555',
+                          fontWeight: 500,
+                        }}
+                      >
+                        {p.team.designers} Designer
+                      </span>
+                    )}
+                    {p.team.productManagers > 0 && (
+                      <span
+                        style={{
+                          background: p.color,
+                          borderRadius: 6,
+                          padding: '6px 10px',
+                          fontFamily: "'DM Sans'",
+                          fontSize: 12,
+                          color: '#fff',
+                          fontWeight: 600,
+                        }}
+                      >
+                        {p.team.productManagers} PM (Me)
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Timeline */}
+              {p.team?.timeline && (
+                <div>
+                  <h3
+                    style={{
+                      fontFamily: "'Outfit'",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      color: '#999',
+                      margin: '0 0 8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}
+                  >
+                    <Calendar size={14} />
+                    Timeline
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'DM Sans'",
+                      fontSize: 13,
+                      color: '#555',
+                      margin: 0,
+                      fontWeight: 500,
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {p.team.timeline}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
         </section>
 
-        {/* Divider */}
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: '0 auto',
-            padding: '0 48px',
-          }}
-        >
-          <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${p.color}40, transparent)` }} />
-        </div>
+        {/* Client Logo Marquee */}
+        {p.clients && (
+          <section
+            style={{
+              borderTop: '1px solid #eee',
+              borderBottom: '1px solid #eee',
+              padding: '32px 0',
+              overflow: 'hidden',
+              background: '#fafafa',
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "'DM Sans'",
+                fontSize: 12,
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                color: '#999',
+                margin: '0 0 24px',
+                textAlign: 'center',
+              }}
+            >
+              Trusted by
+            </p>
+            <div
+              style={{
+                display: 'flex',
+                width: 'max-content',
+                animation: 'marquee 30s linear infinite',
+              }}
+            >
+              {/* Double the logos for seamless loop */}
+              {[...p.clients, ...p.clients].map((client, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '0 40px',
+                    minWidth: 120,
+                  }}
+                >
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    style={{
+                      height: 36,
+                      maxWidth: 100,
+                      objectFit: 'contain',
+                      opacity: 0.5,
+                      filter: 'grayscale(100%)',
+                      transition: 'opacity 0.2s, filter 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                      e.currentTarget.style.filter = 'grayscale(0%)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = '0.5';
+                      e.currentTarget.style.filter = 'grayscale(100%)';
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Video Section */}
         {p.loomUrl && (
@@ -199,7 +455,7 @@ export function ProjectPage({ isOpen, project, onClose }) {
             style={{
               maxWidth: 1000,
               margin: '0 auto',
-              padding: '60px 48px',
+              padding: '80px 48px',
             }}
           >
             <h2
@@ -247,7 +503,7 @@ export function ProjectPage({ isOpen, project, onClose }) {
         {p.demoUrl && (
           <section
             style={{
-              maxWidth: 900,
+              maxWidth: 1000,
               margin: '0 auto',
               padding: '40px 48px',
             }}
@@ -360,9 +616,9 @@ export function ProjectPage({ isOpen, project, onClose }) {
         {p.process && (
           <section
             style={{
-              maxWidth: 900,
+              maxWidth: 1000,
               margin: '0 auto',
-              padding: '60px 48px',
+              padding: '80px 48px',
             }}
           >
             <h2
@@ -376,10 +632,10 @@ export function ProjectPage({ isOpen, project, onClose }) {
                 margin: '0 0 48px',
               }}
             >
-              Design Process
+              The Story
             </h2>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
               {p.process.map((step, i) => {
                 const Icon = processIcons[step.type] || Target;
                 return (
@@ -387,35 +643,39 @@ export function ProjectPage({ isOpen, project, onClose }) {
                     key={i}
                     style={{
                       display: 'grid',
-                      gridTemplateColumns: '60px 1fr',
-                      gap: 32,
+                      gridTemplateColumns: '56px 1fr',
+                      gap: 28,
                       alignItems: 'flex-start',
                     }}
                   >
-                    {/* Step icon */}
+                    {/* Step number/icon */}
                     <div
                       style={{
-                        width: 60,
-                        height: 60,
+                        width: 56,
+                        height: 56,
                         borderRadius: 16,
-                        background: `${p.color}10`,
+                        background: i === 0 ? p.color : `${p.color}10`,
                         border: `2px solid ${p.color}30`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        fontFamily: "'Outfit'",
+                        fontSize: 20,
+                        fontWeight: 800,
+                        color: i === 0 ? '#fff' : p.color,
                       }}
                     >
-                      <Icon size={28} color={p.color} />
+                      {i + 1}
                     </div>
 
                     <div>
                       <h3
                         style={{
                           fontFamily: "'Outfit'",
-                          fontSize: 24,
+                          fontSize: 26,
                           fontWeight: 700,
                           color: '#1a1a2e',
-                          margin: '0 0 12px',
+                          margin: '0 0 14px',
                         }}
                       >
                         {step.title}
@@ -425,7 +685,7 @@ export function ProjectPage({ isOpen, project, onClose }) {
                           fontFamily: "'DM Sans'",
                           fontSize: 17,
                           color: '#555',
-                          lineHeight: 1.7,
+                          lineHeight: 1.8,
                           margin: 0,
                         }}
                       >
@@ -435,7 +695,7 @@ export function ProjectPage({ isOpen, project, onClose }) {
                       {step.imageUrl && (
                         <div
                           style={{
-                            marginTop: 24,
+                            marginTop: 28,
                             borderRadius: 16,
                             overflow: 'hidden',
                             boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
@@ -456,26 +716,342 @@ export function ProjectPage({ isOpen, project, onClose }) {
           </section>
         )}
 
-        {/* Divider */}
-        {(p.process || p.insights) && (
-          <div
+        {/* Narrative Sections with Images */}
+        {p.sections?.map((section, i) => (
+          <section
+            key={i}
             style={{
-              maxWidth: 1200,
+              maxWidth: section.fullWidth ? '100%' : 1000,
               margin: '0 auto',
-              padding: '0 48px',
+              padding: section.fullWidth ? '80px 0' : '60px 48px',
+              background: section.background || (i % 2 === 1 ? '#fafafa' : 'transparent'),
             }}
           >
-            <div style={{ height: 1, background: `linear-gradient(90deg, transparent, ${p.color}40, transparent)` }} />
-          </div>
-        )}
+            <div style={{ maxWidth: section.fullWidth ? 1000 : '100%', margin: '0 auto', padding: section.fullWidth ? '0 48px' : 0 }}>
+              {section.title && (
+                <h2
+                  style={{
+                    fontFamily: "'Outfit'",
+                    fontSize: section.titleSize || 28,
+                    fontWeight: 700,
+                    color: '#1a1a2e',
+                    margin: '0 0 16px',
+                  }}
+                >
+                  {section.title}
+                </h2>
+              )}
+
+              {section.content && (
+                <p
+                  style={{
+                    fontFamily: "'DM Sans'",
+                    fontSize: 17,
+                    color: '#555',
+                    lineHeight: 1.8,
+                    margin: section.imageUrl ? '0 0 32px' : 0,
+                    maxWidth: 800,
+                  }}
+                >
+                  {section.content}
+                </p>
+              )}
+
+              {/* Before/After Comparison */}
+              {section.beforeImage && section.afterImage && (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr',
+                    gap: 24,
+                    marginTop: 24,
+                  }}
+                >
+                  <div>
+                    <p
+                      style={{
+                        fontFamily: "'DM Sans'",
+                        fontSize: 12,
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        color: '#DC2626',
+                        margin: '0 0 12px',
+                      }}
+                    >
+                      {section.beforeLabel || 'Without LLM'}
+                    </p>
+                    <div
+                      style={{
+                        borderRadius: 16,
+                        overflow: 'hidden',
+                        border: '2px solid #FEE2E2',
+                        background: '#fff',
+                      }}
+                    >
+                      <img
+                        src={section.beforeImage}
+                        alt={section.beforeLabel || 'Before'}
+                        style={{ width: '100%', display: 'block' }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <p
+                      style={{
+                        fontFamily: "'DM Sans'",
+                        fontSize: 12,
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        color: '#16A34A',
+                        margin: '0 0 12px',
+                      }}
+                    >
+                      {section.afterLabel || 'With LLM'}
+                    </p>
+                    <div
+                      style={{
+                        borderRadius: 16,
+                        overflow: 'hidden',
+                        border: '2px solid #DCFCE7',
+                        background: '#fff',
+                      }}
+                    >
+                      <img
+                        src={section.afterImage}
+                        alt={section.afterLabel || 'After'}
+                        style={{ width: '100%', display: 'block' }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Single Image */}
+              {section.imageUrl && !section.beforeImage && (
+                <div
+                  style={{
+                    borderRadius: section.fullWidth ? 0 : 20,
+                    overflow: 'hidden',
+                    boxShadow: section.fullWidth ? 'none' : '0 16px 48px rgba(0,0,0,0.1)',
+                    background: '#fff',
+                  }}
+                >
+                  <img
+                    src={section.imageUrl}
+                    alt={section.title || 'Project image'}
+                    style={{ width: '100%', display: 'block' }}
+                  />
+                </div>
+              )}
+
+              {/* Video */}
+              {section.videoUrl && (
+                <div
+                  style={{
+                    borderRadius: 20,
+                    overflow: 'hidden',
+                    boxShadow: '0 16px 48px rgba(0,0,0,0.1)',
+                    background: '#000',
+                  }}
+                >
+                  <video
+                    src={section.videoUrl}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{ width: '100%', display: 'block' }}
+                  />
+                </div>
+              )}
+
+              {/* Interactive Charts */}
+              {section.charts === 'usage' && (
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                    gap: 24,
+                    marginTop: 24,
+                  }}
+                >
+                  <UsageBarChart />
+                  <UsagePieChart />
+                </div>
+              )}
+
+              {/* Drop-off Funnel Chart */}
+              {section.charts === 'dropoff' && (
+                <div style={{ marginTop: 24, maxWidth: 600, margin: '24px auto 0' }}>
+                  <DropOffFunnelChart />
+                </div>
+              )}
+
+              {/* Carousel */}
+              {section.carousel && section.carousel.length > 0 && (
+                <div style={{ position: 'relative' }}>
+                  {/* Main Image */}
+                  <div
+                    style={{
+                      borderRadius: 20,
+                      overflow: 'hidden',
+                      boxShadow: '0 16px 48px rgba(0,0,0,0.1)',
+                      background: '#fff',
+                      position: 'relative',
+                    }}
+                  >
+                    <img
+                      src={section.carousel[carouselIndices[i] || 0]}
+                      alt={`${section.title || 'Carousel'} - Image ${(carouselIndices[i] || 0) + 1}`}
+                      style={{
+                        width: '100%',
+                        display: 'block',
+                        transition: 'opacity 0.3s ease',
+                      }}
+                    />
+
+                    {/* Navigation Arrows */}
+                    <button
+                      onClick={() => {
+                        const currentIndex = carouselIndices[i] || 0;
+                        const newIndex = currentIndex === 0 ? section.carousel.length - 1 : currentIndex - 1;
+                        setCarouselIndices(prev => ({ ...prev, [i]: newIndex }));
+                      }}
+                      style={{
+                        position: 'absolute',
+                        left: 16,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        width: 48,
+                        height: 48,
+                        borderRadius: '50%',
+                        background: 'rgba(255,255,255,0.95)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+                        transition: 'transform 0.2s, box-shadow 0.2s',
+                        fontFamily: "'Outfit'",
+                        fontSize: 20,
+                        color: '#333',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                        e.currentTarget.style.boxShadow = '0 6px 24px rgba(0,0,0,0.2)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
+                      }}
+                    >
+                      ←
+                    </button>
+                    <button
+                      onClick={() => {
+                        const currentIndex = carouselIndices[i] || 0;
+                        const newIndex = currentIndex === section.carousel.length - 1 ? 0 : currentIndex + 1;
+                        setCarouselIndices(prev => ({ ...prev, [i]: newIndex }));
+                      }}
+                      style={{
+                        position: 'absolute',
+                        right: 16,
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        width: 48,
+                        height: 48,
+                        borderRadius: '50%',
+                        background: 'rgba(255,255,255,0.95)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+                        transition: 'transform 0.2s, box-shadow 0.2s',
+                        fontFamily: "'Outfit'",
+                        fontSize: 20,
+                        color: '#333',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                        e.currentTarget.style.boxShadow = '0 6px 24px rgba(0,0,0,0.2)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.15)';
+                      }}
+                    >
+                      →
+                    </button>
+                  </div>
+
+                  {/* Navigation Dots */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: 10,
+                      marginTop: 20,
+                    }}
+                  >
+                    {section.carousel.map((_, dotIndex) => (
+                      <button
+                        key={dotIndex}
+                        onClick={() => setCarouselIndices(prev => ({ ...prev, [i]: dotIndex }))}
+                        style={{
+                          width: (carouselIndices[i] || 0) === dotIndex ? 28 : 10,
+                          height: 10,
+                          borderRadius: 5,
+                          background: (carouselIndices[i] || 0) === dotIndex ? p.color : '#ddd',
+                          border: 'none',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease',
+                          padding: 0,
+                        }}
+                        onMouseEnter={(e) => {
+                          if ((carouselIndices[i] || 0) !== dotIndex) {
+                            e.currentTarget.style.background = `${p.color}60`;
+                          }
+                        }}
+                        onMouseLeave={(e) => {
+                          if ((carouselIndices[i] || 0) !== dotIndex) {
+                            e.currentTarget.style.background = '#ddd';
+                          }
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {section.caption && (
+                <p
+                  style={{
+                    fontFamily: "'DM Sans'",
+                    fontSize: 13,
+                    color: '#999',
+                    textAlign: 'center',
+                    marginTop: 16,
+                  }}
+                >
+                  {section.caption}
+                </p>
+              )}
+            </div>
+          </section>
+        ))}
 
         {/* Key Insights */}
         {p.insights && (
           <section
             style={{
-              maxWidth: 900,
+              maxWidth: 1000,
               margin: '0 auto',
-              padding: '60px 48px',
+              padding: '80px 48px',
             }}
           >
             <h2
@@ -489,28 +1065,38 @@ export function ProjectPage({ isOpen, project, onClose }) {
                 margin: '0 0 32px',
               }}
             >
-              Key Insights
+              Key Learnings
             </h2>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
               {p.insights.map((insight, i) => (
                 <div
                   key={i}
                   style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: 16,
-                    padding: '24px 28px',
+                    padding: '28px',
                     background: '#fafafa',
-                    borderRadius: 16,
-                    borderLeft: `4px solid ${p.color}`,
+                    borderRadius: 20,
+                    borderTop: `4px solid ${p.color}`,
                   }}
                 >
-                  <CheckCircle2 size={22} color={p.color} style={{ flexShrink: 0, marginTop: 2 }} />
+                  <div
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 8,
+                      background: `${p.color}15`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: 16,
+                    }}
+                  >
+                    <CheckCircle2 size={18} color={p.color} />
+                  </div>
                   <p
                     style={{
                       fontFamily: "'DM Sans'",
-                      fontSize: 17,
+                      fontSize: 16,
                       color: '#444',
                       lineHeight: 1.6,
                       margin: 0,
@@ -524,103 +1110,17 @@ export function ProjectPage({ isOpen, project, onClose }) {
           </section>
         )}
 
-        {/* Narrative Sections with Images */}
-        {p.sections?.map((section, i) => (
-          <section
-            key={i}
-            style={{
-              maxWidth: section.fullWidth ? '100%' : 900,
-              margin: '0 auto',
-              padding: section.fullWidth ? '60px 0' : '60px 48px',
-              background: section.background || 'transparent',
-            }}
-          >
-            {section.title && (
-              <h2
-                style={{
-                  fontFamily: "'Outfit'",
-                  fontSize: section.titleSize || 32,
-                  fontWeight: 700,
-                  color: '#1a1a2e',
-                  margin: '0 0 24px',
-                  maxWidth: section.fullWidth ? 900 : '100%',
-                  marginLeft: section.fullWidth ? 'auto' : 0,
-                  marginRight: section.fullWidth ? 'auto' : 0,
-                  padding: section.fullWidth ? '0 48px' : 0,
-                }}
-              >
-                {section.title}
-              </h2>
-            )}
-
-            {section.content && (
-              <p
-                style={{
-                  fontFamily: "'DM Sans'",
-                  fontSize: 17,
-                  color: '#555',
-                  lineHeight: 1.8,
-                  margin: 0,
-                  maxWidth: section.fullWidth ? 900 : '100%',
-                  marginLeft: section.fullWidth ? 'auto' : 0,
-                  marginRight: section.fullWidth ? 'auto' : 0,
-                  padding: section.fullWidth ? '0 48px' : 0,
-                }}
-              >
-                {section.content}
-              </p>
-            )}
-
-            {section.imageUrl && (
-              <div
-                style={{
-                  marginTop: section.title || section.content ? 32 : 0,
-                  maxWidth: section.fullWidth ? '100%' : 900,
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                }}
-              >
-                <img
-                  src={section.imageUrl}
-                  alt={section.title || 'Project image'}
-                  style={{
-                    width: '100%',
-                    display: 'block',
-                    borderRadius: section.fullWidth ? 0 : 20,
-                    boxShadow: section.fullWidth ? 'none' : '0 16px 48px rgba(0,0,0,0.1)',
-                  }}
-                />
-                {section.caption && (
-                  <p
-                    style={{
-                      fontFamily: "'DM Sans'",
-                      fontSize: 13,
-                      color: '#999',
-                      textAlign: 'center',
-                      marginTop: 16,
-                      padding: '0 48px',
-                    }}
-                  >
-                    {section.caption}
-                  </p>
-                )}
-              </div>
-            )}
-          </section>
-        ))}
-
         {/* Outcome Section */}
         {p.outcome && (
           <section
             style={{
               background: `linear-gradient(135deg, ${p.color}08, ${p.color}15)`,
               padding: '80px 48px',
-              marginTop: 40,
             }}
           >
             <div
               style={{
-                maxWidth: 900,
+                maxWidth: 1000,
                 margin: '0 auto',
               }}
             >
@@ -639,7 +1139,7 @@ export function ProjectPage({ isOpen, project, onClose }) {
                 }}
               >
                 <Target size={18} />
-                Target KPIs
+                {p.productLabel === "Product Concept" ? "Target KPIs" : "Results"}
               </h2>
 
               <p
@@ -658,11 +1158,11 @@ export function ProjectPage({ isOpen, project, onClose }) {
           </section>
         )}
 
-        {/* Stats Section - only show if no process/insights/sections (simple projects) */}
-        {p.stats && !p.process && !p.sections && (
+        {/* Stats Section - only show if no team (simple projects) */}
+        {p.stats && !p.team && (
           <section
             style={{
-              maxWidth: 900,
+              maxWidth: 1000,
               margin: '0 auto',
               padding: '60px 48px',
             }}
@@ -719,7 +1219,7 @@ export function ProjectPage({ isOpen, project, onClose }) {
         {p.highlights && !p.insights && (
           <section
             style={{
-              maxWidth: 900,
+              maxWidth: 1000,
               margin: '0 auto',
               padding: '60px 48px',
             }}
@@ -814,6 +1314,16 @@ export function ProjectPage({ isOpen, project, onClose }) {
           </button>
         </footer>
       </div>
+
+      {/* Marquee animation keyframes */}
+      <style>
+        {`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+        `}
+      </style>
     </>
   );
 }

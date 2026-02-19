@@ -318,13 +318,7 @@ export function Timeline() {
 
       {/* Scroll to products */}
       <p
-        onClick={() => {
-          const element = document.getElementById('work');
-          if (element) {
-            const y = element.getBoundingClientRect().top + window.pageYOffset - 80;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-          }
-        }}
+        onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
         style={{
           fontFamily: "'Caveat', cursive",
           fontSize: 22,

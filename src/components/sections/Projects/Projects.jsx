@@ -16,7 +16,7 @@ export function Projects({ isMobile }) {
   };
 
   return (
-    <section id="work" style={{ maxWidth: 1100, margin: "0 auto", padding: "40px 24px 100px" }}>
+    <section id="work" style={{ maxWidth: 1100, margin: "0 auto", padding: "40px 24px 100px", scrollMarginTop: 80 }}>
       <Reveal>
         <div style={{ marginBottom: 56 }}>
           <p style={{ fontFamily: "'Caveat', cursive", fontSize: 22, color: "#FF6B35", margin: "0 0 8px" }}>
