@@ -243,6 +243,522 @@ export function UsagePieChart() {
   );
 }
 
+// Novion Capital Planning Data
+const CAPEX_DATA = [
+  { year: 'Backlog', bau: 1160000, canopy: 1160000 },
+  { year: '2025', bau: 580000, canopy: 580000 },
+  { year: '2026', bau: 1015000, canopy: 1015000 },
+  { year: '2027', bau: 290000, canopy: 290000 },
+  { year: '2028', bau: 0, canopy: 150000 },
+  { year: '2029', bau: 0, canopy: 150000 },
+  { year: '2030', bau: 420000, canopy: 420000 },
+  { year: '2031', bau: 0, canopy: 150000 },
+  { year: '2032', bau: 0, canopy: 150000 },
+  { year: '2033', bau: 560000, canopy: 560000 },
+  { year: '2034', bau: 1160000, canopy: 1160000 },
+];
+
+// Calculate 3-year moving average
+const calculateMovingAverage = (data, key, windowSize = 3) => {
+  return data.map((_, i) => {
+    const start = Math.max(0, i - windowSize + 1);
+    const slice = data.slice(start, i + 1);
+    const avg = slice.reduce((sum, d) => sum + d[key], 0) / slice.length;
+    return avg;
+  });
+};
+
+export function CapexFundingChart() {
+  const [hoveredBar, setHoveredBar] = useState(null);
+  const [scenario, setScenario] = useState('both'); // 'bau', 'canopy', 'both'
+
+  const maxValue = Math.max(...CAPEX_DATA.flatMap(d => [d.bau, d.canopy]));
+  const chartHeight = 200;
+  const barWidth = 28;
+  const gap = 6;
+
+  const bauMA = calculateMovingAverage(CAPEX_DATA, 'bau');
+  const canopyMA = calculateMovingAverage(CAPEX_DATA, 'canopy');
+
+  const formatCurrency = (value) => {
+    if (value >= 1000000) return `$${(value / 1000000).toFixed(1)}M`;
+    if (value >= 1000) return `$${(value / 1000).toFixed(0)}K`;
+    return `$${value}`;
+  };
+
+  // Calculate SVG points for moving average lines
+  const getLinePoints = (maData) => {
+    return maData.map((val, i) => {
+      const x = 50 + i * 70 + barWidth;
+      const y = chartHeight - (val / maxValue) * (chartHeight - 40) - 20;
+      return `${x},${y}`;
+    }).join(' ');
+  };
+
+  return (
+    <div style={{
+      background: '#fff',
+      borderRadius: 16,
+      padding: 24,
+      boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+    }}>
+      <h4 style={{
+        fontFamily: "'Outfit'",
+        fontSize: 16,
+        fontWeight: 700,
+        color: '#1a1a2e',
+        margin: '0 0 8px',
+        textAlign: 'center',
+      }}>
+        10-Year Capital Replacement Forecast
+      </h4>
+      <p style={{
+        fontFamily: "'DM Sans'",
+        fontSize: 12,
+        color: '#999',
+        margin: '0 0 20px',
+        textAlign: 'center',
+      }}>
+        Compare BAU vs 10% canopy expansion scenarios
+      </p>
+
+      {/* Scenario Toggle */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: 8,
+        marginBottom: 20,
+      }}>
+        {[
+          { key: 'bau', label: 'BAU Only', color: '#6B7280' },
+          { key: 'both', label: 'Compare Both', color: '#22C55E' },
+          { key: 'canopy', label: '+10% Canopy', color: '#16A34A' },
+        ].map(opt => (
+          <button
+            key={opt.key}
+            onClick={() => setScenario(opt.key)}
+            style={{
+              padding: '6px 14px',
+              borderRadius: 6,
+              border: 'none',
+              fontFamily: "'DM Sans'",
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+              background: scenario === opt.key ? opt.color : '#f5f5f5',
+              color: scenario === opt.key ? '#fff' : '#666',
+            }}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Legend */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 16 }}>
+        {(scenario === 'bau' || scenario === 'both') && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ width: 14, height: 14, borderRadius: 3, background: '#9CA3AF' }} />
+            <span style={{ fontFamily: "'DM Sans'", fontSize: 11, color: '#666' }}>BAU</span>
+            <div style={{ width: 20, height: 2, background: '#6B7280', marginLeft: 4 }} />
+            <span style={{ fontFamily: "'DM Sans'", fontSize: 10, color: '#999' }}>3yr MA</span>
+          </div>
+        )}
+        {(scenario === 'canopy' || scenario === 'both') && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ width: 14, height: 14, borderRadius: 3, background: '#22C55E' }} />
+            <span style={{ fontFamily: "'DM Sans'", fontSize: 11, color: '#666' }}>+10% Canopy</span>
+            <div style={{ width: 20, height: 2, background: '#16A34A', marginLeft: 4 }} />
+            <span style={{ fontFamily: "'DM Sans'", fontSize: 10, color: '#999' }}>3yr MA</span>
+          </div>
+        )}
+      </div>
+
+      {/* Chart */}
+      <div style={{ overflowX: 'auto', paddingBottom: 8 }}>
+        <svg width={CAPEX_DATA.length * 70 + 60} height={chartHeight + 40} style={{ display: 'block' }}>
+          {/* Y-axis labels */}
+          {[0, 0.25, 0.5, 0.75, 1].map((pct, i) => {
+            const y = chartHeight - pct * (chartHeight - 40);
+            return (
+              <g key={i}>
+                <line x1="40" y1={y} x2={CAPEX_DATA.length * 70 + 50} y2={y} stroke="#f0f0f0" strokeWidth="1" />
+                <text x="35" y={y + 4} textAnchor="end" style={{ fontFamily: "'DM Sans'", fontSize: 9, fill: '#999' }}>
+                  {formatCurrency(maxValue * pct)}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* Bars */}
+          {CAPEX_DATA.map((d, i) => {
+            const x = 50 + i * 70;
+            const bauHeight = (d.bau / maxValue) * (chartHeight - 40);
+            const canopyHeight = (d.canopy / maxValue) * (chartHeight - 40);
+            const isHovered = hoveredBar === i;
+
+            return (
+              <g key={d.year}>
+                {/* BAU Bar */}
+                {(scenario === 'bau' || scenario === 'both') && (
+                  <rect
+                    x={scenario === 'both' ? x : x + barWidth / 2}
+                    y={chartHeight - bauHeight}
+                    width={barWidth}
+                    height={Math.max(bauHeight, 2)}
+                    fill={isHovered ? '#6B7280' : '#9CA3AF'}
+                    rx={4}
+                    onMouseEnter={() => setHoveredBar(i)}
+                    onMouseLeave={() => setHoveredBar(null)}
+                    style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
+                  />
+                )}
+
+                {/* Canopy Bar */}
+                {(scenario === 'canopy' || scenario === 'both') && (
+                  <rect
+                    x={scenario === 'both' ? x + barWidth + gap : x + barWidth / 2}
+                    y={chartHeight - canopyHeight}
+                    width={barWidth}
+                    height={Math.max(canopyHeight, 2)}
+                    fill={isHovered ? '#16A34A' : '#22C55E'}
+                    rx={4}
+                    onMouseEnter={() => setHoveredBar(i)}
+                    onMouseLeave={() => setHoveredBar(null)}
+                    style={{ cursor: 'pointer', transition: 'all 0.2s ease' }}
+                  />
+                )}
+
+                {/* X-axis label */}
+                <text
+                  x={scenario === 'both' ? x + barWidth + gap / 2 : x + barWidth}
+                  y={chartHeight + 16}
+                  textAnchor="middle"
+                  style={{ fontFamily: "'DM Sans'", fontSize: 9, fill: '#666', fontWeight: isHovered ? 600 : 400 }}
+                >
+                  {d.year}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* Moving Average Lines */}
+          {(scenario === 'bau' || scenario === 'both') && (
+            <polyline
+              points={bauMA.map((val, i) => {
+                const x = scenario === 'both' ? 50 + i * 70 + barWidth : 50 + i * 70 + barWidth;
+                const y = chartHeight - (val / maxValue) * (chartHeight - 40);
+                return `${x},${y}`;
+              }).join(' ')}
+              fill="none"
+              stroke="#6B7280"
+              strokeWidth="2"
+              strokeDasharray="4,2"
+              style={{ opacity: 0.8 }}
+            />
+          )}
+          {(scenario === 'canopy' || scenario === 'both') && (
+            <polyline
+              points={canopyMA.map((val, i) => {
+                const x = scenario === 'both' ? 50 + i * 70 + barWidth * 2 + gap : 50 + i * 70 + barWidth;
+                const y = chartHeight - (val / maxValue) * (chartHeight - 40);
+                return `${x},${y}`;
+              }).join(' ')}
+              fill="none"
+              stroke="#16A34A"
+              strokeWidth="2"
+              strokeDasharray="4,2"
+              style={{ opacity: 0.8 }}
+            />
+          )}
+        </svg>
+      </div>
+
+      {/* Tooltip */}
+      {hoveredBar !== null && (
+        <div style={{
+          textAlign: 'center',
+          padding: '10px 16px',
+          background: '#f9fafb',
+          borderRadius: 8,
+          marginTop: 12,
+        }}>
+          <div style={{ fontFamily: "'Outfit'", fontSize: 13, fontWeight: 700, color: '#1a1a2e', marginBottom: 6 }}>
+            {CAPEX_DATA[hoveredBar].year}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 20 }}>
+            {(scenario === 'bau' || scenario === 'both') && (
+              <div>
+                <span style={{ fontFamily: "'DM Sans'", fontSize: 11, color: '#999' }}>BAU: </span>
+                <span style={{ fontFamily: "'Outfit'", fontSize: 13, fontWeight: 700, color: '#6B7280' }}>
+                  {formatCurrency(CAPEX_DATA[hoveredBar].bau)}
+                </span>
+              </div>
+            )}
+            {(scenario === 'canopy' || scenario === 'both') && (
+              <div>
+                <span style={{ fontFamily: "'DM Sans'", fontSize: 11, color: '#999' }}>+10% Canopy: </span>
+                <span style={{ fontFamily: "'Outfit'", fontSize: 13, fontWeight: 700, color: '#22C55E' }}>
+                  {formatCurrency(CAPEX_DATA[hoveredBar].canopy)}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Summary Stats */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 12,
+        marginTop: 20,
+        padding: 16,
+        background: '#f0fdf4',
+        borderRadius: 12,
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontFamily: "'Outfit'", fontSize: 18, fontWeight: 800, color: '#22C55E' }}>
+            $5.2M
+          </div>
+          <div style={{ fontFamily: "'DM Sans'", fontSize: 10, color: '#666', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Total BAU
+          </div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontFamily: "'Outfit'", fontSize: 18, fontWeight: 800, color: '#16A34A' }}>
+            $5.7M
+          </div>
+          <div style={{ fontFamily: "'DM Sans'", fontSize: 10, color: '#666', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            +10% Canopy
+          </div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontFamily: "'Outfit'", fontSize: 18, fontWeight: 800, color: '#166534' }}>
+            +$450K
+          </div>
+          <div style={{ fontFamily: "'DM Sans'", fontSize: 10, color: '#666', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Investment Delta
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Middleware Benchmark Data from CSV
+const MIDDLEWARE_BENCHMARKS = [
+  { metric: 'Dataset Size', d1: '5,531', d2: '30,916', d3: '220,609', d4: '443,555', d5: '6,105' },
+  { metric: 'Dictionary Size', d1: '650', d2: '650', d3: '650', d4: '650', d5: '181,354' },
+  { metric: '% Identified', d1: '72%', d2: '88%', d3: '89%', d4: '85%', d5: '80%', isHighlight: true },
+  { metric: '% Error', d1: '1.4%', d2: '1.4%', d3: '1.6%', d4: '2.0%', d5: '1.8%', isError: true },
+  { metric: 'Execution Time', d1: '<1 min', d2: '<1 min', d3: '2 min', d4: '3 min', d5: '3 min' },
+];
+
+const DATASET_HEADERS = [
+  { key: 'd1', label: 'Dataset 1', subLabel: 'Source 1' },
+  { key: 'd2', label: 'Dataset 2', subLabel: 'Source 1' },
+  { key: 'd3', label: 'Dataset 3', subLabel: 'Source 1' },
+  { key: 'd4', label: 'Dataset 4', subLabel: 'Source 1' },
+  { key: 'd5', label: 'Dataset 5', subLabel: 'Source 2' },
+];
+
+export function MiddlewareBenchmarkTable() {
+  const [hoveredRow, setHoveredRow] = useState(null);
+  const [hoveredCol, setHoveredCol] = useState(null);
+
+  return (
+    <div style={{
+      background: '#fff',
+      borderRadius: 16,
+      padding: 24,
+      boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+    }}>
+      <h4 style={{
+        fontFamily: "'Outfit'",
+        fontSize: 16,
+        fontWeight: 700,
+        color: '#1a1a2e',
+        margin: '0 0 8px',
+        textAlign: 'center',
+      }}>
+        Validation Engine Performance
+      </h4>
+      <p style={{
+        fontFamily: "'DM Sans'",
+        fontSize: 12,
+        color: '#999',
+        margin: '0 0 20px',
+        textAlign: 'center',
+      }}>
+        Benchmarks across 5 production datasets from 2 data sources
+      </p>
+
+      {/* Table */}
+      <div style={{ overflowX: 'auto' }}>
+        <table style={{
+          width: '100%',
+          borderCollapse: 'collapse',
+          fontFamily: "'DM Sans'",
+          fontSize: 12,
+        }}>
+          <thead>
+            <tr>
+              <th style={{
+                padding: '12px 10px',
+                textAlign: 'left',
+                background: '#f9fafb',
+                borderBottom: '2px solid #e5e7eb',
+                fontWeight: 600,
+                color: '#374151',
+                borderRadius: '8px 0 0 0',
+              }}>
+                Metric
+              </th>
+              {DATASET_HEADERS.map((header, i) => (
+                <th
+                  key={header.key}
+                  onMouseEnter={() => setHoveredCol(i)}
+                  onMouseLeave={() => setHoveredCol(null)}
+                  style={{
+                    padding: '10px 8px',
+                    textAlign: 'center',
+                    background: hoveredCol === i ? '#F59E0B15' : '#f9fafb',
+                    borderBottom: '2px solid #e5e7eb',
+                    transition: 'background 0.2s ease',
+                    borderRadius: i === DATASET_HEADERS.length - 1 ? '0 8px 0 0' : 0,
+                    cursor: 'default',
+                  }}
+                >
+                  <div style={{
+                    fontWeight: 700,
+                    color: '#1a1a2e',
+                    fontSize: 11,
+                  }}>
+                    {header.label}
+                  </div>
+                  <div style={{
+                    fontSize: 9,
+                    color: '#999',
+                    marginTop: 2,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}>
+                    {header.subLabel}
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {MIDDLEWARE_BENCHMARKS.map((row, rowIndex) => (
+              <tr
+                key={row.metric}
+                onMouseEnter={() => setHoveredRow(rowIndex)}
+                onMouseLeave={() => setHoveredRow(null)}
+                style={{
+                  background: hoveredRow === rowIndex ? '#fefce8' : (rowIndex % 2 === 0 ? '#fff' : '#fafafa'),
+                  transition: 'background 0.2s ease',
+                }}
+              >
+                <td style={{
+                  padding: '12px 10px',
+                  borderBottom: '1px solid #f0f0f0',
+                  fontWeight: 600,
+                  color: '#374151',
+                }}>
+                  {row.metric}
+                </td>
+                {DATASET_HEADERS.map((header, colIndex) => {
+                  const value = row[header.key];
+                  const isHighlightCell = row.isHighlight;
+                  const isErrorCell = row.isError;
+
+                  return (
+                    <td
+                      key={header.key}
+                      onMouseEnter={() => setHoveredCol(colIndex)}
+                      onMouseLeave={() => setHoveredCol(null)}
+                      style={{
+                        padding: '12px 8px',
+                        textAlign: 'center',
+                        borderBottom: '1px solid #f0f0f0',
+                        background: hoveredCol === colIndex ? '#F59E0B08' : 'transparent',
+                        transition: 'background 0.2s ease',
+                      }}
+                    >
+                      <span style={{
+                        fontFamily: "'Outfit'",
+                        fontWeight: isHighlightCell || isErrorCell ? 700 : 500,
+                        fontSize: isHighlightCell || isErrorCell ? 13 : 12,
+                        color: isHighlightCell ? '#16A34A' : isErrorCell ? '#DC2626' : '#1a1a2e',
+                        background: isHighlightCell ? '#DCFCE7' : isErrorCell ? '#FEE2E2' : 'transparent',
+                        padding: isHighlightCell || isErrorCell ? '3px 8px' : 0,
+                        borderRadius: 4,
+                      }}>
+                        {value}
+                      </span>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Summary Stats */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 12,
+        marginTop: 20,
+        padding: 16,
+        background: '#FEF3C7',
+        borderRadius: 12,
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontFamily: "'Outfit'", fontSize: 20, fontWeight: 800, color: '#F59E0B' }}>
+            72-89%
+          </div>
+          <div style={{ fontFamily: "'DM Sans'", fontSize: 10, color: '#92400E', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Identification Rate
+          </div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontFamily: "'Outfit'", fontSize: 20, fontWeight: 800, color: '#16A34A' }}>
+            &lt;2%
+          </div>
+          <div style={{ fontFamily: "'DM Sans'", fontSize: 10, color: '#92400E', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Error Rate
+          </div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontFamily: "'Outfit'", fontSize: 20, fontWeight: 800, color: '#8B5CF6' }}>
+            &lt;3 min
+          </div>
+          <div style={{ fontFamily: "'DM Sans'", fontSize: 10, color: '#92400E', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+            Processing Time
+          </div>
+        </div>
+      </div>
+
+      {/* Note */}
+      <p style={{
+        fontFamily: "'DM Sans'",
+        fontSize: 11,
+        color: '#999',
+        margin: '16px 0 0',
+        textAlign: 'center',
+        fontStyle: 'italic',
+      }}>
+        Tested on datasets ranging from 5K to 443K records with dictionaries up to 181K entries
+      </p>
+    </div>
+  );
+}
+
 export function DropOffFunnelChart() {
   const [hoveredStep, setHoveredStep] = useState(null);
   const [showAfter, setShowAfter] = useState(false);

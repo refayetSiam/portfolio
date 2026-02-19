@@ -1,1 +1,1 @@
-export { UsageBarChart, UsagePieChart, DropOffFunnelChart } from './UsageChart';
+export { UsageBarChart, UsagePieChart, DropOffFunnelChart, CapexFundingChart, MiddlewareBenchmarkTable } from './UsageChart';
