@@ -1,0 +1,6 @@
+Metric,Dataset 1 (VFA),Dataset 2 (VFA),Dataset 3 (VFA),Dataset 4 (VFA),Dataset 5 (DI)
+Dataset Size,5531,30916,220609,443555,6105
+Dictionary Size,650,650,650,650,181354
+% Identified,72,88,89,85,80
+% Error,1.4,1.4,1.6,2,1.8
+Execution Time (min),1,1,2,3,3

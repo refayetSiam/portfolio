@@ -60,43 +60,44 @@ export const TIMELINE = [
     }
   },
   {
-    year: "2018",
+    year: "2019-2023",
     title: "Co-Founder / Product Lead",
     org: "Novion - B2G Climate Tech",
     type: "founding",
     track: "0to1",
-    startYear: 2018,
-    endYear: 2020,
+    startYear: 2019,
+    endYear: 2023,
     color: "#22C55E",
     logo: "novion",
     summary:
-      "Started a climate tech company from scratch. Built satellite-based natural asset management for municipal governments - from zero to $100K ARR with 120% YoY growth across 8+ government contracts.",
-    tags: ["GIS", "IoT", "SaaS", "Government Contracts"],
+      "Co-founded a climate tech company building satellite-powered natural asset management for Canadian municipalities. Led product from zero to $200K+ ARR across 7 government agencies, influencing $190M+ in municipal budgets.",
+    tags: ["Climate Tech", "GovTech", "Satellite Imagery", "GIS"],
     metrics: [
-      { value: "$100K", label: "ARR" },
-      { value: "120%", label: "YoY Growth" },
-      { value: "8+", label: "Gov Agencies" }
+      { value: "$200K+", label: "Revenue" },
+      { value: "7", label: "Gov Agencies" },
+      { value: "$190M+", label: "Budget Influenced" }
     ],
     details: {
-      duration: "2+ years",
+      duration: "4+ years",
       location: "Vancouver, BC",
-      team: "Co-founder, small founding team",
+      team: "3 Engineers, 1 Designer, 1 Sales, 1 PM (Me)",
       responsibilities: [
         "Co-founded and led product strategy for B2G climate tech startup",
-        "Built satellite-based natural asset management platform from scratch",
-        "Secured and managed 8+ government contracts",
-        "Architected IoT data pipeline for 30+ environmental sensors"
+        "Conducted discovery with 40+ municipalities to shape product direction",
+        "Built two products: SkyVision (satellite inventory) and Land Ledger (valuation engine)",
+        "Secured and managed 7 government agency contracts"
       ],
       achievements: [
-        { metric: "$100K", description: "ARR achieved from zero" },
-        { metric: "120%", description: "Year-over-year revenue growth" },
-        { metric: "8+", description: "Government agency contracts secured" },
-        { metric: "85%", description: "Reduction in manual monitoring costs" }
+        { metric: "$200K+", description: "Revenue achieved from zero" },
+        { metric: "7", description: "Government agency contracts secured" },
+        { metric: "$190M+", description: "Municipal budget decisions influenced" },
+        { metric: "40+", description: "Municipal discovery interviews conducted" }
       ],
-      tools: ["GIS", "IoT", "PostgreSQL", "Python", "React", "AWS"],
+      tools: ["Satellite Imagery", "GIS", "NDVI Analysis", "Python", "PostgreSQL", "React"],
       links: [
         { label: "Company", url: "https://novion.ca" }
-      ]
+      ],
+      caseStudyNote: "Full case study available in Work section"
     }
   },
   {
@@ -166,7 +167,8 @@ export const TIMELINE = [
       tools: ["SQL", "Jira", "Figma", "Amplitude", "CSV/Data tools"],
       links: [
         { label: "Company", url: "https://accruent.com" }
-      ]
+      ],
+      caseStudyNote: "Full case study available in Work section"
     }
   },
   {
@@ -205,7 +207,8 @@ export const TIMELINE = [
       tools: ["Azure Application Insights", "Grafana", "Jira", "Figma", "SQL Server"],
       links: [
         { label: "Company", url: "https://gordian.com" }
-      ]
+      ],
+      caseStudyNote: "Full case study available in Work section"
     }
   },
   {

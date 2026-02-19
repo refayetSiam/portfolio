@@ -85,7 +85,7 @@ export function Hero() {
         >
           Product Manager who builds things.
           <br />
-          <span style={{ color: "#999" }}>Enterprise platforms - Climate tech - AI products</span>
+          <span style={{ color: "#999", whiteSpace: "nowrap", display: "block", textAlign: "center" }}>Enterprise Platforms - GovTech - Data - AI Products</span>
         </p>
 
         <div
@@ -122,7 +122,32 @@ export function Hero() {
               e.target.style.boxShadow = "none";
             }}
           >
-            My journey
+            My Journey
+          </button>
+          <button
+            onClick={() => scrollToSection('work')}
+            style={{
+              fontFamily: "'DM Sans'",
+              fontSize: 16,
+              fontWeight: 700,
+              background: "linear-gradient(135deg, #FF6B35, #8B5CF6)",
+              color: "#fff",
+              border: "none",
+              padding: "14px 36px",
+              borderRadius: 100,
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "translateY(-2px)";
+              e.target.style.boxShadow = "0 8px 24px rgba(139,92,246,0.3)";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "translateY(0)";
+              e.target.style.boxShadow = "none";
+            }}
+          >
+            My Work
           </button>
           <button
             onClick={() => scrollToSection("contact")}

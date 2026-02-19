@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowLeft, CheckCircle2, ExternalLink, Target, TrendingUp, Users, Layers, BarChart3, Calendar, Clock, Award } from 'lucide-react';
 import { useScrollLock } from '../../../hooks';
-import { UsageBarChart, UsagePieChart, DropOffFunnelChart } from '../../charts';
+import { UsageBarChart, UsagePieChart, DropOffFunnelChart, CapexFundingChart, MiddlewareBenchmarkTable } from '../../charts';
 
 export function ProjectPage({ isOpen, project, onClose }) {
   const pageRef = useRef(null);
@@ -41,6 +41,8 @@ export function ProjectPage({ isOpen, project, onClose }) {
       return { bg: "#DCFCE7", color: "#16A34A" };
     } else if (label === "Product Concept") {
       return { bg: "#FEF3C7", color: "#D97706" };
+    } else if (label === "Data Product") {
+      return { bg: "#FEF3C7", color: "#F59E0B" };
     }
     return { bg: "#F3E8FF", color: "#9333EA" };
   };
@@ -195,6 +197,32 @@ export function ProjectPage({ isOpen, project, onClose }) {
               ))}
             </div>
 
+            {/* Product Exercise Note */}
+            {p.isProductExercise && p.productExerciseNote && (
+              <div
+                style={{
+                  background: `${p.color}10`,
+                  border: `2px solid ${p.color}30`,
+                  borderRadius: 12,
+                  padding: '16px 20px',
+                  marginBottom: 24,
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "'DM Sans'",
+                    fontSize: 14,
+                    color: '#555',
+                    lineHeight: 1.6,
+                    margin: 0,
+                    fontStyle: 'italic',
+                  }}
+                >
+                  <strong style={{ color: p.color, fontStyle: 'normal' }}>Product Exercise:</strong> {p.productExerciseNote}
+                </p>
+              </div>
+            )}
+
             {/* Problem Statement / Description */}
             <p
               style={{
@@ -219,6 +247,40 @@ export function ProjectPage({ isOpen, project, onClose }) {
                 border: '1px solid #eee',
               }}
             >
+              {/* Role/Title */}
+              {p.role && (
+                <div style={{ marginBottom: 24 }}>
+                  <h3
+                    style={{
+                      fontFamily: "'Outfit'",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      color: '#999',
+                      margin: '0 0 8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                    }}
+                  >
+                    <Clock size={14} />
+                    My Role
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "'DM Sans'",
+                      fontSize: 15,
+                      color: p.color,
+                      margin: 0,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {p.role}
+                  </p>
+                </div>
+              )}
+
               {/* Impact Stats */}
               {p.stats && (
                 <div style={{ marginBottom: 24 }}>
@@ -322,6 +384,22 @@ export function ProjectPage({ isOpen, project, onClose }) {
                         {p.team.designers} Designer
                       </span>
                     )}
+                    {p.team.sales > 0 && (
+                      <span
+                        style={{
+                          background: '#fff',
+                          border: '1px solid #e0e0e0',
+                          borderRadius: 6,
+                          padding: '6px 10px',
+                          fontFamily: "'DM Sans'",
+                          fontSize: 12,
+                          color: '#555',
+                          fontWeight: 500,
+                        }}
+                      >
+                        {p.team.sales} Sales
+                      </span>
+                    )}
                     {p.team.productManagers > 0 && (
                       <span
                         style={{
@@ -408,7 +486,7 @@ export function ProjectPage({ isOpen, project, onClose }) {
               style={{
                 display: 'flex',
                 width: 'max-content',
-                animation: 'marquee 30s linear infinite',
+                animation: `marquee ${Math.max(20, p.clients.length * 3)}s linear infinite`,
               }}
             >
               {/* Double the logos for seamless loop */}
@@ -886,6 +964,20 @@ export function ProjectPage({ isOpen, project, onClose }) {
               {section.charts === 'dropoff' && (
                 <div style={{ marginTop: 24, maxWidth: 600, margin: '24px auto 0' }}>
                   <DropOffFunnelChart />
+                </div>
+              )}
+
+              {/* Capex Funding Chart */}
+              {section.charts === 'capex' && (
+                <div style={{ marginTop: 24, maxWidth: 800, margin: '24px auto 0' }}>
+                  <CapexFundingChart />
+                </div>
+              )}
+
+              {/* Middleware Benchmark Table */}
+              {section.charts === 'middleware' && (
+                <div style={{ marginTop: 24, maxWidth: 800, margin: '24px auto 0' }}>
+                  <MiddlewareBenchmarkTable />
                 </div>
               )}
 

@@ -134,11 +134,15 @@ export function ProjectCard({ project, index, onOpenProject }) {
                   ? "#DCFCE7"
                   : project.productLabel === "Product Concept"
                   ? "#FEF3C7"
+                  : project.productLabel === "Data Product"
+                  ? "#FEF3C7"
                   : "#F3E8FF",
                 color: project.productLabel === "Product Shipped"
                   ? "#16A34A"
                   : project.productLabel === "Product Concept"
                   ? "#D97706"
+                  : project.productLabel === "Data Product"
+                  ? "#F59E0B"
                   : "#9333EA",
                 fontSize: 10,
                 fontWeight: 700,
@@ -181,9 +185,9 @@ export function ProjectCard({ project, index, onOpenProject }) {
           </p>
 
           {/* Stats */}
-          <div style={{ display: "flex", gap: 14, marginBottom: 14 }}>
+          <div style={{ display: "flex", gap: 14, marginBottom: 14, justifyContent: "center" }}>
             {project.stats.map((s, i) => (
-              <div key={i} style={{ flex: 1 }}>
+              <div key={i} style={{ flex: 1, textAlign: "center" }}>
                 <div
                   style={{
                     fontFamily: "'Outfit'",
@@ -212,8 +216,25 @@ export function ProjectCard({ project, index, onOpenProject }) {
           </div>
 
           {/* Feature Tags */}
-          {(project.loomUrl || project.demoUrl || project.hasAlgorithmBreakdown) && (
+          {(project.loomUrl || project.demoUrl || project.hasAlgorithmBreakdown || project.hasMultiProductOverview) && (
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
+              {project.hasMultiProductOverview && (
+                <span
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 4,
+                    background: "#EDE9FE",
+                    color: "#7C3AED",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    padding: "5px 10px",
+                    borderRadius: 6,
+                  }}
+                >
+                  <span style={{ fontSize: 12 }}>📦</span> Multi-Product PM
+                </span>
+              )}
               {project.hasAlgorithmBreakdown && (
                 <span
                   style={{

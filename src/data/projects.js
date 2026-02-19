@@ -8,13 +8,15 @@ export const PROJECTS = [
     id: "gordian-ai",
     title: "AI Data Migration Engine",
     company: "Gordian",
+    role: "Product Manager: Enterprise Data Platform",
+    companyLogo: "/logos/gordian.webp",
     productLabel: "Product Shipped",
     color: "#FF6B35",
     accent: "#FFE0D0",
     tag: "Enterprise AI",
     tags: ["Enterprise AI", "Azure OpenAI", "Data Migration", "Cost Optimization"],
     tools: ["Azure OpenAI", "Azure Application Insights", "LLM", "Vector Embeddings", "Grafana"],
-    thumbnail: "/case-studies/gordian-ai/with-llm.png",
+    thumbnail: "/case-studies/gordian-ai/gor-ai-thumbnail.png",
     hasAlgorithmBreakdown: true,
     team: {
       engineers: 5,
@@ -115,19 +117,22 @@ export const PROJECTS = [
     id: "gordian-platform",
     title: "Enterprise Data Platform",
     company: "Gordian",
+    role: "Product Manager: Enterprise Data Platform",
+    companyLogo: "/logos/gordian.webp",
     productLabel: "Product Shipped",
     color: "#8B5CF6",
     accent: "#EDE9FE",
     tag: "Enterprise SaaS",
     tags: ["Enterprise SaaS", "Gov-tech", "Data Platform", "B2G"],
     tools: ["Azure Application Insights", "Grafana", "Jira", "Figma", "SQL Server"],
-    thumbnail: "/projects/gordian-platform-thumbnail.png",
+    thumbnail: "/case-studies/gordian-platform/platform-thumbnail.png",
+    hasMultiProductOverview: true,
     team: {
       engineers: 8,
       designers: 2,
       qa: 2,
       productManagers: 1,
-      timeline: "5+ Years (2022-Present)"
+      timeline: "5+ Years (2019-Present)"
     },
     stats: [
       { label: "ARR Protected", value: "$48M+" },
@@ -135,58 +140,68 @@ export const PROJECTS = [
       { label: "Experiments", value: "12+" }
     ],
     description:
-      "Led product strategy for Gordian's flagship construction cost data platform serving 100+ government and enterprise clients. Ran 12+ experiments that drove a roadmap pivot, boosting DAU by 25% and protecting $48M+ in at-risk ARR through data quality features.",
-    outcome: "Transformed a legacy platform into a data-driven product organization. Protected $48M+ in renewal revenue while increasing daily active usage by 25%.",
+      "Owned the data layer between incoming client data and Gordian's flagship Capital Planning Software. Every data point that flows through becomes part of state, federal, and municipal budgets. Data quality is mission-critical.",
+    outcome: "Protected $48M+ in at-risk ARR through data quality features while increasing daily active usage by 25%.",
     process: [
       {
         type: "research",
-        title: "The Challenge",
-        description: "Gordian's RSMeans platform is the industry standard for construction cost data, serving 100+ government clients and enterprises. But after years of feature-driven development, the product had accumulated significant technical debt and UX friction. Clients were churning, and we lacked visibility into why. My mandate: transform the product organization from reactive to data-driven.",
-      },
-      {
-        type: "interviews",
-        title: "Building the Telemetry Foundation",
-        description: "You cannot improve what you cannot measure. I partnered with engineering to instrument the platform with Azure Application Insights. We built dashboards tracking feature adoption, user flows, and drop-off points. For the first time, we could see which features clients actually used versus which ones we assumed they valued.",
-      },
-      {
-        type: "research",
-        title: "Discovering the Real Problems",
-        description: "The telemetry revealed surprising patterns. Features we had invested heavily in had <5% adoption. Meanwhile, a basic data export function was used by 80% of clients daily. We conducted 30+ customer interviews to understand the gap between our roadmap and client needs. The core insight: clients did not need more features. They needed cleaner data and faster workflows.",
-      },
-      {
-        type: "prioritize",
-        title: "The Roadmap Pivot",
-        description: "Armed with data, I proposed a controversial pivot: pause new feature development and focus entirely on data quality and core workflow optimization. I ran 12+ A/B experiments to validate hypotheses before committing engineering resources. Each experiment had clear success metrics and a two-week timebox. The experiments gave us confidence to make the pivot.",
+        title: "Context",
+        description: "Gordian's Capital Planning Software is the industry standard for construction cost estimation, serving 100+ government clients and enterprises. I owned the data platform that sits between incoming client data and this flagship product. Every data point that flows through eventually becomes part of state, federal, and municipal budgets, so data quality isn't just important, it's mission-critical.",
       },
       {
         type: "design",
-        title: "Data Quality as a Feature",
-        description: "We built a data validation layer that caught errors before they reached clients. Implemented real-time data quality scores visible to both internal teams and clients. Created automated alerts for data anomalies. These unglamorous features became our biggest retention drivers.",
+        title: "Products Managed: Data Validation",
+        description: "Since all incoming data feeds into capital planning budgets, we need to ensure only clean, validated data enters the system. I managed the data validation product that catches errors, inconsistencies, and anomalies before they can impact downstream budget calculations. Real-time validation rules process thousands of records, flagging issues for review before they become costly mistakes.",
+      },
+      {
+        type: "interviews",
+        title: "Products Managed: Data Review Tool",
+        description: "Think of it like code review, but for facilities data. The Data Review Tool gives stakeholders visibility into what data is being submitted, who submitted it, and what changed. It creates an audit trail and approval workflow that's essential for government clients who need accountability at every step. This transparency became a key differentiator in enterprise sales.",
+      },
+      {
+        type: "prioritize",
+        title: "New Product Launched: AI Data Migration",
+        description: "Launched an industry-first AI-powered data migration engine that reduced client onboarding costs by 88% ($180K to $20K per migration). This opened up the mid-market segment that was previously uneconomical to serve. See the AI Data Migration Engine case study for the full breakdown of the technical approach and business impact.",
       },
     ],
     sections: [
       {
-        title: "Feature Usage Tracking",
-        content: "I built dashboards tracking unique feature usage across the platform. Q4 2025 data revealed clear patterns: GCP Data and VFA Data were the most-used features, while MIQ and SnapShot had minimal adoption. This data directly informed our Q1 2026 roadmap priorities.",
+        title: "Feature Tracking & Continuous Improvement",
+        content: "I built telemetry dashboards tracking unique feature usage across the platform. You can't improve what you can't measure. Q4 2025 data revealed clear patterns: some features had heavy daily usage while others sat unused. This data directly informed roadmap priorities and helped us make evidence-based decisions about where to invest engineering resources.",
         charts: "usage",
         caption: "Interactive visualization: Hover over bars and pie slices to explore the data. Numbers hidden for confidentiality.",
       },
       {
-        title: "Experiment-Driven Development",
-        content: "Telemetry revealed a critical problem: only 40% of users completed the full workflow. Major drop-offs occurred at 'Run Algorithm' (users waited too long for processing) and 'Download Report' (large files timed out). I ran two experiments: (1) Added algorithm presets for common use cases, and (2) Moved large data processing to cloud with email notifications when complete. Result: completion rate jumped from 40% to 84%.",
+        title: "Experiment-Driven Development: An Example",
+        content: "Telemetry revealed only 40% of users completed the full workflow. Major drop-offs occurred at 'Run Algorithm' (processing took too long in-browser) and 'Download Report' (large files timed out). Rather than guessing at solutions, I ran controlled experiments. Experiment 1: Added algorithm presets for common use cases. Experiment 2: Moved large data processing to cloud with email notifications when complete. The result: completion rate jumped from 40% to 84%, a 110% improvement validated by data, not intuition.",
         charts: "dropoff",
-        caption: "Interactive before/after: Toggle to see how experiments improved workflow completion by 110%.",
+        caption: "Toggle between Before and After to see how targeted experiments improved workflow completion.",
       },
     ],
     insights: [
-      "Telemetry is not optional for enterprise products. You cannot make good decisions without data on actual usage",
-      "Sometimes the best product work is removing features, not adding them. Simplification drove our biggest adoption gains",
-      "Data quality is invisible when it works and catastrophic when it fails. Investing in unglamorous infrastructure paid off in retention"
+      "Telemetry is not optional for enterprise products. You can't make good decisions without data on actual usage",
+      "When your data feeds into government budgets, quality isn't a feature. It's the product.",
+      "Experiment before you commit. Two-week timeboxed tests saved us from building the wrong things"
     ],
     highlights: [
+      "Owned product strategy for data validation, data review, and AI migration products",
       "Built telemetry infrastructure from scratch with Azure Application Insights and Grafana",
-      "Ran 12+ controlled experiments to validate roadmap decisions before committing resources",
       "Protected $48M+ in at-risk ARR by prioritizing data quality over new features"
+    ],
+    clients: [
+      { name: "Google", logo: "/case-studies/gordian-ai/logos/google.png" },
+      { name: "DND Canada", logo: "/case-studies/gordian-ai/logos/dnd.png" },
+      { name: "Harvard", logo: "/case-studies/gordian-ai/logos/harvard.png" },
+      { name: "Johnson & Johnson", logo: "/case-studies/gordian-ai/logos/jnj.png" },
+      { name: "Kenvue", logo: "/case-studies/gordian-ai/logos/kenvue.svg" },
+      { name: "Mesa", logo: "/case-studies/gordian-ai/logos/mesa.png" },
+      { name: "Sodexo", logo: "/case-studies/gordian-ai/logos/sodexo.svg" },
+      { name: "ABM", logo: "/case-studies/gordian-ai/logos/abm.png" },
+      { name: "BCME", logo: "/case-studies/gordian-ai/logos/bcme.png" },
+      { name: "BSO", logo: "/case-studies/gordian-ai/logos/bso.png" },
+      { name: "OEDU", logo: "/case-studies/gordian-ai/logos/oedu.png" },
+      { name: "SFSD", logo: "/case-studies/gordian-ai/logos/sfsd.webp" },
+      { name: "Walgreens", logo: "/case-studies/gordian-ai/logos/walgreen.png" },
     ]
   },
   // 3. Natural Assets Platform - Novion
@@ -194,45 +209,163 @@ export const PROJECTS = [
     id: "novion",
     title: "Natural Assets Platform",
     company: "Novion (Co-founder)",
+    role: "Product Lead",
+    companyLogo: "/logos/novion.webp",
     productLabel: "Product Shipped",
     color: "#22C55E",
     accent: "#D1FAE5",
     tag: "Climate Tech",
-    thumbnail: "/projects/novion-thumbnail.png",
+    tags: ["Climate Tech", "GovTech", "Satellite Imagery", "GIS", "B2G"],
+    tools: ["Satellite Imagery", "GIS", "NDVI Analysis", "Python", "PostgreSQL", "React"],
+    thumbnail: "/case-studies/novion/skyvision.png",
+    hasMultiProductOverview: true,
+    team: {
+      engineers: 3,
+      designers: 1,
+      sales: 1,
+      productManagers: 1,
+      timeline: "2022-2024"
+    },
     stats: [
-      { label: "YoY Growth", value: "120%" },
-      { label: "ARR", value: "$100K" },
-      { label: "Uptime", value: "95%+" }
+      { label: "Revenue", value: "$200K+" },
+      { label: "Gov Agencies", value: "7" },
+      { label: "Budget Influenced", value: "$190M+" }
     ],
     description:
-      "Satellite-based asset management for municipal governments. GIS inventory, IoT environmental monitoring with 30+ sensors, and regulatory compliance - from zero to contracted revenue across 8+ agencies.",
+      "Co-founded a satellite-powered natural asset management platform helping Canadian municipalities comply with new climate regulations. Conducted discovery with 40+ municipalities to shape product direction. From zero to $200K+ ARR across 7 institutional clients, influencing $190M+ in municipal budgets.",
+    outcome: "Built and shipped a full lifecycle management platform for municipal natural assets. Clients can now inventory, value, and plan maintenance for forests, wetlands, and urban greenery, turning regulatory compliance into a competitive advantage.",
+    process: [
+      {
+        type: "research",
+        title: "The Regulatory Shift",
+        description: "Canadian legislation is driving municipalities to account for natural assets. Ontario Regulation 588/17 mandates including natural assets in asset management plans. CSA W218:23 defines standards for natural asset inventories. The Green Municipal Fund has allocated $1.6B for climate adaptation. Cities need to comply, but most lack the tools to inventory and value their natural assets at scale."
+      },
+      {
+        type: "interviews",
+        title: "40+ Municipal Interviews",
+        description: "I led discovery calls with 40+ municipalities across Canada, speaking with asset managers, city planners, and sustainability officers. The pattern was clear: cities knew they had valuable natural assets (wetlands that prevent flooding, urban trees that sequester carbon), but they had no systematic way to inventory them, assess their condition, or justify budget for maintenance. Most relied on manual surveys that were expensive and outdated the moment they were completed."
+      },
+      {
+        type: "design",
+        title: "Product: Novion SkyVision",
+        description: "Built satellite-powered asset inventory and condition assessment. High-resolution satellite imagery is processed using multi-spectral bands to identify and classify natural assets (forests, wetlands, grasslands, water bodies). NDVI (Normalized Difference Vegetation Index) analysis provides condition scoring on a 1-5 scale, identifying deterioration, deforestation, or environmental stress. All without sending a single person into the field.",
+        imageUrl: "/case-studies/novion/skyvision.png"
+      },
+      {
+        type: "prioritize",
+        title: "Product: Novion Land Ledger",
+        description: "Created a valuation engine that aggregates city-specific natural asset data. For each asset class, we calculate service value (carbon sequestration, stormwater management, air quality improvement) and replacement costs. A wetland provides $2.02/m²/year in ecosystem services. Urban trees provide millions in economic benefit. These valuations give cities the data they need to justify budget allocation and prioritize maintenance projects."
+      }
+    ],
+    sections: [
+      {
+        title: "Satellite-Powered Condition Assessment",
+        content: "Traditional condition assessments require expensive field surveys. We use NDVI satellite imagery to assess vegetation health across an entire city in hours, not months. The system detects changes over time, identifying areas where vegetation is stressed, where deforestation is occurring, or where restoration efforts are succeeding. Year-over-year comparisons let cities track the health of their natural assets without leaving the office.",
+        imageUrl: "/case-studies/novion/ndvi.png",
+        caption: "NDVI analysis showing vegetation health. Green = healthy, Red = stressed."
+      },
+      {
+        title: "From Data to Capital Planning",
+        content: "The platform's Projects module integrates directly with SkyVision's inventory data, transforming asset conditions into actionable capital plans. Each asset has calculated service values and replacement costs. Cities can generate multi-year funding scenarios, compare investment strategies (BAU vs canopy expansion), and prioritize maintenance projects based on condition scores. Our valuations directly influenced $190M+ in municipal budget decisions.",
+        charts: "capex",
+        caption: "Interactive 10-year capital forecast: Compare BAU vs growth scenarios with 3-year moving averages."
+      }
+    ],
+    insights: [
+      "Regulatory tailwinds create opportunity. When governments mandate new requirements, the first compliant solution wins. We positioned early for natural asset regulations.",
+      "Satellite data is a force multiplier. What used to require months of field surveys can now be done in hours with the right imagery and algorithms.",
+      "B2G sales cycles are long but sticky. Government contracts take time to close, but once you're in, you're often the incumbent for years."
+    ],
     highlights: [
-      "Architected IoT data pipeline for 30+ sensors with 95%+ uptime",
-      "Built GIS-based inventory and capital planning tools",
-      "Reduced manual monitoring costs by 85%"
+      "Co-founded and led product strategy from concept to $200K+ ARR",
+      "Conducted discovery with 40+ municipalities to shape product direction",
+      "Built satellite-powered inventory system processing city-wide imagery",
+      "Influenced $190M+ in municipal budget decisions across 7 institutional clients"
+    ],
+    clients: [
+      { name: "City of Vancouver", logo: "/case-studies/novion/clients/cov.png" },
+      { name: "UBC", logo: "/case-studies/novion/clients/ubc.png" },
+      { name: "Town of Okotoks", logo: "/case-studies/novion/clients/okotoks.png" },
+      { name: "City of Prince George", logo: "/case-studies/novion/clients/pg.png" },
+      { name: "City of Burnaby", logo: "/case-studies/novion/clients/cob.jpg" },
+      { name: "Conservation Foundation", logo: "/case-studies/novion/clients/cf.png" },
+      { name: "Canadian Nature Works", logo: "/case-studies/novion/clients/cnw.png" },
     ]
   },
   // 4. Data Validation Middleware - Accruent
   {
     id: "accruent-middleware",
-    title: "Data Validation Middleware",
+    title: "Data Validation",
     company: "Accruent",
-    productLabel: "Product Shipped",
+    role: "Technical Product Manager",
+    companyLogo: "/logos/accruent.png",
+    productLabel: "Data Product",
     color: "#F59E0B",
     accent: "#FEF3C7",
     tag: "Enterprise Software",
-    thumbnail: "/projects/accruent-thumbnail.png",
+    tags: ["Enterprise SaaS", "Data Quality", "Gov-tech", "B2B"],
+    tools: ["SQL", "Data Pipelines", "Validation Rules", "User Research"],
+    thumbnail: "/case-studies/accruent/data_issue.png",
+    hasAlgorithmBreakdown: true,
+    team: {
+      engineers: 4,
+      productManagers: 1,
+      timeline: "2020-2021"
+    },
     stats: [
-      { label: "Error Reduction", value: "95%" },
-      { label: "Processing", value: "Real-time" },
-      { label: "Integrations", value: "15+" }
+      { label: "Error Reduction", value: "50%+" },
+      { label: "Adoption", value: "~90%" },
+      { label: "Products Integrated", value: "3" }
     ],
     description:
-      "Built middleware layer for real-time data validation across enterprise IWMS platform. Automated quality checks that previously required manual review, enabling faster onboarding and reducing data errors.",
+      "Owned the data quality control feature for an enterprise IWMS platform. Data pipelines from 3 products fed into our system, and the numbers we produced went directly into municipal, provincial, and federal budgets. After customer churn signaled data trust issues, I led the initiative to build validation that reduced errors by 50%+ and became an RFP differentiator.",
+    outcome: "Reduced data errors by 50%+ for customers using the feature. Within two years, nearly every customer adopted it as part of their standard workflow. The feature became a competitive differentiator in RFPs, helping win new government clients.",
+    process: [
+      {
+        type: "research",
+        title: "The Problem: Garbage In, Garbage Out",
+        description: "Data entered via different sources (3rd party contractors, client uploads, manual entry) introduced inconsistencies and errors. These errors propagated across the database and into features used by clients. For government customers, this was critical: inaccurate reporting affected capital planning budgets at the municipal, provincial, and federal level."
+      },
+      {
+        type: "interviews",
+        title: "Customer Discovery",
+        description: "User churn signaled something was wrong. I spoke with customers to understand their pain points around data quality. The pattern was clear: they didn't trust the numbers, and when budgets are at stake, trust is everything. Some errors were on our side, but many originated from client processes before data even reached us."
+      },
+      {
+        type: "design",
+        title: "Defining the Rules",
+        description: "I owned both what we should validate and how it would be implemented. That meant working with customers to define validation rules, partnering with engineering on the architecture, and designing workflows for different user types. The challenge: catch real errors without creating alert fatigue from false positives."
+      },
+      {
+        type: "prioritize",
+        title: "User Education",
+        description: "Building the feature was half the battle. The other half was educating users on what the system could and couldn't catch, especially helping them understand when a process issue on their side was creating bad data before it even got to us. This reduced support tickets and improved overall data quality at the source."
+      }
+    ],
+    sections: [
+      {
+        title: "The Data Flow Problem",
+        content: "Manual data entry from multiple sources (contractors, clients, internal teams) introduced errors that propagated through the database and into client-facing features. For government clients, these errors could affect millions in budget decisions. We needed validation that caught errors early without disrupting existing workflows.",
+        imageUrl: "/case-studies/accruent/data_issue.png",
+        caption: "Pre-QC vs Post-QC: Error propagation from manual entry to inaccurate capital planning reports."
+      },
+      {
+        title: "Engineering the Validation Engine",
+        content: "I worked closely with engineering to design and test the validation middleware. We ran benchmarks across 5 production datasets, from 5K to 443K records, to ensure the system could handle enterprise scale. The engine achieved 72-89% automatic identification rates with error rates under 2%, processing even the largest datasets in under 3 minutes.",
+        charts: "middleware",
+        caption: "Production benchmark results across VFA and Data Integrity modules."
+      }
+    ],
+    insights: [
+      "Data quality is a trust problem. When customers don't trust your numbers, they leave, even if the underlying product is solid.",
+      "Not all errors are your fault, but they're all your problem. Helping customers fix their upstream processes was as important as fixing our validation.",
+      "For government clients, accuracy isn't a feature. It's table stakes. Being the only vendor with data validation at scale became our RFP advantage."
+    ],
     highlights: [
-      "Designed validation rules engine processing 10K+ records/hour",
-      "Integrated with 15+ enterprise data sources (SAP, Oracle, etc.)",
-      "Reduced client onboarding time by 40%"
+      "Owned data quality control feature end-to-end: requirements, architecture, and user adoption",
+      "Integrated validation across data pipelines from 3 separate products",
+      "Reduced data errors by 50%+ and achieved ~90% customer adoption in 2 years",
+      "Feature became RFP differentiator, helping win new government clients"
     ]
   },
   // 5. SpareHub - Fleet Manager
@@ -240,6 +373,7 @@ export const PROJECTS = [
     id: "sparehub",
     title: "SpareHub: Fleet Manager",
     company: "Product Concept",
+    role: "Product Lead",
     productLabel: "Product Concept",
     color: "#3B82F6",
     accent: "#DBEAFE",
@@ -258,6 +392,8 @@ export const PROJECTS = [
       { label: "Stockouts", value: "-90%" },
       { label: "Utilization", value: "80%" }
     ],
+    isProductExercise: true,
+    productExerciseNote: "This is a product exercise I completed to demonstrate end-to-end PM skills: problem discovery, user research, prioritization, and solution design. The scenario is fictional, but the process and deliverables reflect how I approach real product challenges.",
     description:
       "Transitland Paratransit Service operates 300 buses across 2 garages serving elderly and disabled riders. Their maintenance team struggles with paper-based work orders, leading to missed preventive maintenance and unplanned breakdowns. Operations managers lack visibility into fleet availability, causing last-minute scrambles when buses fail pre-trip inspections.",
     outcome: "Designed solution targeting 100% digital work order adoption, 90% reduction in parts stockouts, and 80% fleet utilization rate.",
@@ -306,52 +442,6 @@ export const PROJECTS = [
       "Mapped stakeholder pain points across Operations and Maintenance teams",
       "Built a unified data model with role-specific dashboards",
       "Real-time inventory alerts solving critical parts stockout issues"
-    ]
-  },
-  // 6. Churn Intelligence
-  {
-    id: "churn",
-    title: "Churn Intelligence",
-    company: "Product Concept",
-    productLabel: "Product Concept",
-    color: "#EC4899",
-    accent: "#FCE7F3",
-    tag: "Growth / Retention",
-    thumbnail: "/projects/churn-thumbnail.png",
-    stats: [
-      { label: "Focus", value: "SaaS" },
-      { label: "Type", value: "Analytics" },
-      { label: "Approach", value: "ML-driven" }
-    ],
-    description:
-      "Churn prediction and intervention for SaaS companies. Behavioral signals + ML models identify at-risk accounts early and trigger targeted retention playbooks automatically.",
-    highlights: [
-      "ML risk scoring based on product usage patterns",
-      "Automated intervention workflows on churn signals",
-      "Customer health dashboards with actionable insights"
-    ]
-  },
-  // 7. PropertyIntel - Personal Project
-  {
-    id: "propertyintel",
-    title: "PropertyIntel",
-    company: "Personal Project",
-    productLabel: "Personal Project",
-    color: "#06B6D4",
-    accent: "#CFFAFE",
-    tag: "AI x Real Estate",
-    thumbnail: "/projects/propertyintel-thumbnail.png",
-    stats: [
-      { label: "Market", value: "Canada" },
-      { label: "Input", value: "Address" },
-      { label: "Output", value: "Full Report" }
-    ],
-    description:
-      "AI-powered real estate due diligence for Canadian homebuyers. Enter an address and asking price - get a comprehensive property report covering risk factors, neighborhood data, and investment analysis.",
-    highlights: [
-      "End-to-end product from user research to working prototype",
-      "AI-generated comprehensive reports from minimal input",
-      "Designed for first-time buyers in Canada's complex market"
     ]
   }
 ];

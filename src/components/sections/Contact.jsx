@@ -95,7 +95,7 @@ export function Contact({ isMobile }) {
                 Say hello
               </a>
               <a
-                href="/resume.pdf"
+                href="/Refayet Siam - Resume.pdf"
                 download="Refayet_Siam_Resume.pdf"
                 style={{
                   fontFamily: "'DM Sans'",
