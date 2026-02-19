@@ -93,7 +93,7 @@ export const TIMELINE = [
         { metric: "$190M+", description: "Municipal budget decisions influenced" },
         { metric: "40+", description: "Municipal discovery interviews conducted" }
       ],
-      tools: ["Satellite Imagery", "GIS", "NDVI Analysis", "Python", "PostgreSQL", "React"],
+      tools: ["Satellite Imagery", "GIS", "NDVI Analysis", "Python", "PostgreSQL", "React", "JIRA", "AWS", "AWS DynamoDB", "AWS Amplify"],
       links: [
         { label: "Company", url: "https://novion.ca" }
       ],
@@ -204,7 +204,7 @@ export const TIMELINE = [
         { metric: "$48M+", description: "At-risk ARR protected through data quality features" },
         { metric: "12+", description: "Product experiments run to validate roadmap" }
       ],
-      tools: ["Azure Application Insights", "Grafana", "Jira", "Figma", "SQL Server"],
+      tools: ["Azure Application Insights", "Grafana", "Jira", "Figma", "SQL Server", "Azure", "Azure DevOps", "Miro", "React", "Flask"],
       links: [
         { label: "Company", url: "https://gordian.com" }
       ],
@@ -243,7 +243,7 @@ export const TIMELINE = [
         { metric: "$12M", description: "New revenue unlocked through mid-market expansion" },
         { metric: "93%", description: "Automated coverage achieved" }
       ],
-      tools: ["Azure OpenAI", "Azure Application Insights", "LLM", "Vector Embeddings", "Grafana", "Python"],
+      tools: ["Azure OpenAI", "Azure Application Insights", "LLM", "Vector Embeddings", "Grafana", "Python", "JIRA", "Azure", "Azure DevOps", "Miro", "React", "Flask"],
       links: [
         { label: "Company", url: "https://gordian.com" }
       ],

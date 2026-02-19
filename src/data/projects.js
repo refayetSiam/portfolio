@@ -299,7 +299,7 @@ export const PROJECTS = [
     company: "Accruent",
     role: "Technical Product Manager",
     companyLogo: "/logos/accruent.png",
-    productLabel: "Data Product",
+    productLabel: "Product Shipped",
     color: "#F59E0B",
     accent: "#FEF3C7",
     tag: "Enterprise Software",
