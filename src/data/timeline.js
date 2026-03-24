@@ -273,8 +273,8 @@ export const TIMELINE = [
       ],
       achievements: [
         { metric: "3", description: "Products built and shipped in 3 months" },
-        { metric: "~40s", description: "Leverage-AI report generation time at $0.03/report" },
-        { metric: "<15s", description: "VoicePrep analysis time for 2-minute recordings" }
+        { metric: "~15 min", description: "Leverage-AI comprehensive report generation at $0.40/report" },
+        { metric: "1-2 min", description: "VoicePrep analysis time for 2-minute recordings" }
       ],
       tools: ["React", "TypeScript", "Firebase", "OpenAI GPT-4o", "Whisper", "Kimi K2.5", "Tavily API", "Firestore", "Tailwind", "Zustand"],
       links: [

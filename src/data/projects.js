@@ -463,13 +463,13 @@ export const PROJECTS = [
       timeline: "January 2026"
     },
     stats: [
-      { label: "Report Time", value: "~40s" },
-      { label: "Cost/Report", value: "$0.03" },
+      { label: "Report Time", value: "~15 min" },
+      { label: "Cost/Report", value: "$0.40" },
       { label: "Developer Profiles", value: "143" }
     ],
     description:
       "An AI agent that generates comprehensive condo due-diligence reports from just an address. Type in a unit and get comparable sales, price history, developer reputation, neighbourhood risks, fair value estimate, and negotiation strategy. The kind of research a good realtor would do, automated and transparent.",
-    outcome: "Full autonomous pipeline generating investor-grade condo reports in ~40 seconds at $0.03 per report. Every search query, URL, and LLM call is logged and downloadable. No black box.",
+    outcome: "Full autonomous pipeline generating investor-grade condo reports in ~15 minutes at $0.40 per report. Every search query, URL, and LLM call is logged and downloadable. No black box.",
     process: [
       {
         type: "research",
@@ -479,12 +479,12 @@ export const PROJECTS = [
       {
         type: "design",
         title: "4-Stage Autonomous Pipeline",
-        description: "This isn't a 'send address to ChatGPT' wrapper. It's a 4-stage pipeline where each stage searches the web, extracts data, validates it, and passes structured results to the next. Stage 1 (Property & Comps, ~15s): constructs search queries across 4 real estate sites, discovers MLS numbers, extracts HTML via headless rendering, runs regex parsers, then conditionally calls LLMs for gaps. Stage 2 (Developer Research, ~10s): checks a curated cache of 143 developer profiles first, skips web searches entirely on cache hit. Stage 3 (Neighbourhood & Risk, ~10s): searches for special levies, development permits, rezoning, and forum signals. Stage 4 (Synthesis, ~5s): cross-validates everything, computes fair value range, generates buy/hold/avoid signal."
+        description: "This isn't a 'send address to ChatGPT' wrapper. It's a 4-stage pipeline where each stage searches the web, extracts data, validates it, and passes structured results to the next. Stage 1 (Property & Comps): constructs search queries across 4 real estate sites, discovers MLS numbers, extracts HTML via headless rendering, runs regex parsers, then conditionally calls LLMs for gaps. Stage 2 (Developer Research): checks a curated cache of 143 developer profiles first, skips web searches entirely on cache hit. Stage 3 (Neighbourhood & Risk): searches for special levies, development permits, rezoning, and forum signals. Stage 4 (Synthesis): cross-validates everything, computes fair value range, generates buy/hold/avoid signal. The full pipeline takes about 15 minutes for a comprehensive report."
       },
       {
         type: "prioritize",
         title: "Hybrid Extraction: Regex + LLM",
-        description: "V1 was 100% LLM for data extraction, which was unreliable and expensive. Comp data on condos.ca appears in the same HTML structure every time, so regex is faster, cheaper, and deterministic. The LLM only gets called when regex leaves gaps. This dropped Stage 1 costs from ~$0.15 to ~$0.03 per report. Before sending content to the LLM, a custom parser strips navigation, footers, and boilerplate, cutting token usage by ~60%."
+        description: "V1 was 100% LLM for data extraction, which was unreliable and expensive. Comp data on condos.ca appears in the same HTML structure every time, so regex is faster, cheaper, and deterministic. The LLM only gets called when regex leaves gaps. This keeps the total report cost around $0.40. Before sending content to the LLM, a custom parser strips navigation, footers, and boilerplate, cutting token usage by ~60%."
       },
       {
         type: "interviews",
@@ -497,7 +497,7 @@ export const PROJECTS = [
         title: "Sample Due-Diligence Report",
         content: "The system makes its own decisions about what to search, which URLs to extract, and when to call an LLM vs. when regex is sufficient. Three parallel LLM calls analyze pages grouped by source, then a fourth merge call consolidates everything. Deterministic fields like days-on-market and relist count are computed in code, not by the LLM.",
         imageUrl: "/case-studies/leverage-ai/Sample Report.png",
-        caption: "Full condo report generated in ~40 seconds from just an address."
+        caption: "Full condo report generated in ~15 minutes from just an address."
       },
       {
         title: "Dashboard Intelligence",
@@ -513,13 +513,13 @@ export const PROJECTS = [
       }
     ],
     insights: [
-      "Regex-first extraction with LLM fallback cut costs by 80% while improving reliability. Not everything needs AI.",
+      "Regex-first extraction with LLM fallback improved reliability while keeping costs low. Not everything needs AI.",
       "Caching 143 developer profiles saves an entire pipeline stage per report. Small lookup tables beat expensive API calls.",
       "Full observability builds trust. Users can download every search query and LLM call as JSON. No black box."
     ],
     highlights: [
-      "Built a 4-stage autonomous AI pipeline generating reports in ~40 seconds",
-      "Hybrid regex + LLM extraction reduced per-report cost from $0.15 to $0.03",
+      "Built a 4-stage autonomous AI pipeline generating comprehensive reports in ~15 minutes",
+      "Hybrid regex + LLM extraction keeps per-report cost at $0.40",
       "Curated 143 developer profiles with fuzzy matching for instant cache hits",
       "Integrated Bank of Canada and Statistics Canada APIs for live economic data"
     ]
@@ -543,13 +543,13 @@ export const PROJECTS = [
       timeline: "February 2026"
     },
     stats: [
-      { label: "Analysis Time", value: "<15s" },
+      { label: "Analysis Time", value: "1-2 min" },
       { label: "Scoring Dims", value: "6" },
       { label: "AI Layers", value: "3" }
     ],
     description:
       "A speech coaching app for high-stakes moments. Record yourself answering a question, and the app runs your audio through three layers of AI analysis: transcription with confidence scoring, signal extraction (pacing, clarity, filler words), and structured coaching across 6 dimensions. Built for the night before, not the long term.",
-    outcome: "Multi-model analysis pipeline that processes a 2-minute recording in under 15 seconds. Provides word-level feedback on delivery mechanics, per-question coaching rules, and cross-session tracking to measure improvement between takes.",
+    outcome: "Multi-model analysis pipeline that processes a 2-minute recording in 1-2 minutes. Provides word-level feedback on delivery mechanics, per-question coaching rules, and cross-session tracking to measure improvement between takes.",
     process: [
       {
         type: "research",
@@ -575,7 +575,7 @@ export const PROJECTS = [
     sections: [
       {
         title: "Prep Intelligence",
-        content: "Your audio passes through parallel API calls: GPT-4o Transcribe for confidence-scored transcription, Whisper for word-level timestamps, then three signal extractors for pacing, clarity, and struggling words. All of this feeds into the coaching LLM. The pipeline runs client-side with parallel calls, keeping total analysis time under 15 seconds for a 2-minute recording.",
+        content: "Your audio passes through parallel API calls: GPT-4o Transcribe for confidence-scored transcription, Whisper for word-level timestamps, then three signal extractors for pacing, clarity, and struggling words. All of this feeds into the coaching LLM. The pipeline runs client-side with parallel calls, keeping total analysis time to 1-2 minutes for a 2-minute recording.",
         imageUrl: "/case-studies/voiceprep/Prep Intelligence.png",
         caption: "Multi-model analysis pipeline: transcription, signal extraction, and AI coaching in parallel."
       },
