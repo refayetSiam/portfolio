@@ -4,6 +4,8 @@ import { PROJECTS } from '../../../data';
 import { ProjectCard } from './ProjectCard';
 import { ProjectPage } from './ProjectPage';
 
+const PERSONAL_IDS = new Set(["sparehub", "leverage-ai", "voiceprep", "flowbricks"]);
+
 export function Projects({ isMobile }) {
   const [selectedProject, setSelectedProject] = useState(null);
 
@@ -13,6 +15,24 @@ export function Projects({ isMobile }) {
 
   const handleCloseProject = () => {
     setSelectedProject(null);
+  };
+
+  const professionalProjects = PROJECTS.filter((p) => !PERSONAL_IDS.has(p.id));
+  const personalProjects = PROJECTS.filter((p) => PERSONAL_IDS.has(p.id));
+
+  const gridStyle = {
+    display: "grid",
+    gridTemplateColumns: `repeat(auto-fill, minmax(${isMobile ? "280px" : "330px"}, 1fr))`,
+    gap: 24,
+  };
+
+  const subheadingStyle = {
+    fontFamily: "'Outfit'",
+    fontSize: "clamp(22px, 3vw, 28px)",
+    fontWeight: 700,
+    color: "#1a1a2e",
+    margin: "0 0 24px",
+    lineHeight: 1.2,
   };
 
   return (
@@ -37,18 +57,29 @@ export function Projects({ isMobile }) {
         </div>
       </Reveal>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(auto-fill, minmax(${isMobile ? "280px" : "330px"}, 1fr))`,
-          gap: 24,
-        }}
-      >
-        {PROJECTS.map((p, i) => (
+      <Reveal>
+        <h3 style={subheadingStyle}>Professional Work</h3>
+      </Reveal>
+      <div style={gridStyle}>
+        {professionalProjects.map((p, i) => (
           <ProjectCard
             key={p.id}
             project={p}
             index={i}
+            onOpenProject={handleOpenProject}
+          />
+        ))}
+      </div>
+
+      <Reveal>
+        <h3 style={{ ...subheadingStyle, marginTop: 56 }}>Personal Work</h3>
+      </Reveal>
+      <div style={gridStyle}>
+        {personalProjects.map((p, i) => (
+          <ProjectCard
+            key={p.id}
+            project={p}
+            index={i + professionalProjects.length}
             onOpenProject={handleOpenProject}
           />
         ))}
