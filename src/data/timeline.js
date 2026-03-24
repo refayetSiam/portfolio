@@ -252,8 +252,8 @@ export const TIMELINE = [
   },
   {
     year: "2026",
-    title: "0-1 Personal Products",
-    org: "Side Projects",
+    title: "0-1 Personal AI Products",
+    org: "Personal Product",
     type: "work",
     track: "0to1",
     startYear: 2026,
@@ -261,20 +261,21 @@ export const TIMELINE = [
     color: "#EC4899",
     logo: "personal",
     summary:
-      "Built and shipped three products from scratch: an AI agent for real estate due diligence, a speech coaching app with multi-model audio analysis, and a workflow automation tool. All solo builds, all live.",
-    tags: ["AI Agent", "Speech AI", "Full Stack", "Firebase"],
+      "Built and shipped three AI-powered products from scratch in 3 months, staying hands-on with the latest AI technologies (GPT-4o, Whisper, vector embeddings, multi-agent orchestration). Each product solves a real problem and is live with interactive demos.",
+    tags: ["AI Agent", "Speech AI", "Full Stack", "Firebase", "AI"],
     details: {
       duration: "Jan - Mar 2026",
       location: "Vancouver, BC",
       responsibilities: [
         "Leverage-AI (Jan 2026): AI agent that generates condo due-diligence reports from an address. 4-stage autonomous pipeline with hybrid regex + LLM extraction, developer cache, and full observability.",
         "VoicePrep (Feb 2026): Speech coaching app for high-stakes moments. 3-layer analysis pipeline using GPT-4o, Whisper, and Kimi K2.5 for word-level delivery feedback across 6 dimensions.",
-        "FlowBricks (Mar 2026): Workflow automation tool. Currently in progress."
+        "FlowBricks (Mar 2026): AI-powered workflow automation tool with knowledge graph, multi-agent orchestration, and persistent memory."
       ],
       achievements: [
-        { metric: "3", description: "Products built and shipped in 3 months" },
+        { metric: "3", description: "AI products built and shipped in 3 months" },
         { metric: "~15 min", description: "Leverage-AI comprehensive report generation at $0.40/report" },
-        { metric: "1-2 min", description: "VoicePrep analysis time for 2-minute recordings" }
+        { metric: "1-2 min", description: "VoicePrep analysis time for 2-minute recordings" },
+        { metric: "10x", description: "Productivity increase through AI-native development workflows" }
       ],
       tools: ["React", "TypeScript", "Firebase", "OpenAI GPT-4o", "Whisper", "Kimi K2.5", "Tavily API", "Firestore", "Tailwind", "Zustand"],
       links: [
