@@ -536,7 +536,7 @@ export const PROJECTS = [
     tag: "AI + Audio",
     tags: ["AI", "Audio Analysis", "Speech Coaching", "Full Stack"],
     tools: ["React", "TypeScript", "Firebase", "OpenAI GPT-4o", "Whisper", "Kimi K2.5", "Zustand", "Tailwind"],
-    thumbnail: "/case-studies/voiceprep/thumbnail.png",
+    thumbnail: "/case-studies/voiceprep/Prep Intelligence.png",
     demoUrl: "https://voiceprep-r1.web.app/",
     team: {
       engineers: 1,
@@ -569,21 +569,21 @@ export const PROJECTS = [
       {
         type: "interviews",
         title: "Competitive Positioning",
-        description: "Yoodli and Orai do general speaking improvement over time. Pramp and Interviewing.io give you live mock interviews with scheduling friction and subjective feedback. ChatGPT reviews your content but knows nothing about how you sound. Recording yourself gives you no structured feedback. VoicePrep is the warmup room, not the gym. You open it the night before, drill your specific answers, get machine-precise feedback, re-record, and watch scores climb. Everyone practices out loud before high-stakes moments, but no one had a tool that listens back and tells them exactly what to fix."
+        description: "Yoodli and Orai do general speaking improvement over time. Pramp and Interviewing.io give you live mock interviews with scheduling friction and subjective feedback. ChatGPT reviews your content but knows nothing about how you sound. Recording yourself gives you no structured feedback. VoicePrep is the warmup room. You open it the night before, drill your specific answers, get machine-precise feedback, re-record, and watch scores climb. Everyone practices out loud before high-stakes moments, but no one had a tool that listens back and tells them exactly what to fix."
       }
     ],
     sections: [
       {
-        title: "The Analysis Pipeline",
+        title: "Prep Intelligence",
         content: "Your audio passes through parallel API calls: GPT-4o Transcribe for confidence-scored transcription, Whisper for word-level timestamps, then three signal extractors for pacing, clarity, and struggling words. All of this feeds into the coaching LLM. The pipeline runs client-side with parallel calls, keeping total analysis time under 15 seconds for a 2-minute recording.",
-        imageUrl: "/case-studies/voiceprep/pipeline.png",
+        imageUrl: "/case-studies/voiceprep/Prep Intelligence.png",
         caption: "Multi-model analysis pipeline: transcription, signal extraction, and AI coaching in parallel."
       },
       {
-        title: "Feedback That's Actually Useful",
+        title: "VoicePrep Dashboard",
         content: "The annotated transcript shows color-coded highlights: red for mumbled words, orange for fillers, blue for long pauses. A WPM chart shows pacing over time with green/red zones. A radar chart gives your 6 scores at a glance. Session history lets you track improvement across attempts on the same question. The struggling words page persists across sessions with IPA pronunciation guides and mouth placement tips.",
-        imageUrl: "/case-studies/voiceprep/feedback.png",
-        caption: "Annotated transcript with word-level highlights, pacing chart, and radar scoring."
+        imageUrl: "/case-studies/voiceprep/VoicePrep Dashboard.png",
+        caption: "Dashboard with session history, radar scoring, and annotated transcripts."
       }
     ],
     insights: [
