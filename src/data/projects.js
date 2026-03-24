@@ -456,7 +456,7 @@ export const PROJECTS = [
     tag: "AI Agent",
     tags: ["AI Agent", "Real Estate", "Web Scraping", "Full Stack"],
     tools: ["React", "TypeScript", "Firebase", "Tavily API", "Kimi/Moonshot LLM", "Firestore", "Tailwind"],
-    thumbnail: "/case-studies/leverage-ai/thumbnail.png",
+    thumbnail: "/case-studies/leverage-ai/Sample Report.png",
     demoUrl: "https://leverage-ai.ca/",
     team: {
       engineers: 1,
@@ -494,16 +494,22 @@ export const PROJECTS = [
     ],
     sections: [
       {
-        title: "The Agent Pipeline",
+        title: "Sample Due-Diligence Report",
         content: "The system makes its own decisions about what to search, which URLs to extract, and when to call an LLM vs. when regex is sufficient. Three parallel LLM calls analyze pages grouped by source, then a fourth merge call consolidates everything. Deterministic fields like days-on-market and relist count are computed in code, not by the LLM.",
-        imageUrl: "/case-studies/leverage-ai/pipeline.png",
-        caption: "4-stage autonomous pipeline with timing breakdown per stage."
+        imageUrl: "/case-studies/leverage-ai/Sample Report.png",
+        caption: "Full condo report generated in ~40 seconds from just an address."
       },
       {
         title: "Dashboard Intelligence",
         content: "Separate from the reports, the app pulls live data from Bank of Canada (interest rates) and Statistics Canada (unemployment, CPI, building permits, housing price index) APIs. 20 years of historical data, auto-refreshed hourly. Gives buyers macro context alongside the micro analysis of their specific unit.",
-        imageUrl: "/case-studies/leverage-ai/dashboard.png",
+        imageUrl: "/case-studies/leverage-ai/DataIntelligence Dashboard.png",
         caption: "Live economic indicators from Bank of Canada and Statistics Canada APIs."
+      },
+      {
+        title: "Step-by-Step Buyer's Guide",
+        content: "A kanban-style buyer's guide that walks first-time condo buyers through every stage of the purchase process. Each column represents a phase, from initial research through closing. Practical checklists and action items at every step.",
+        imageUrl: "/case-studies/leverage-ai/StepbyStep Buyers Guide.png",
+        caption: "Interactive buyer's guide with phase-by-phase checklists."
       }
     ],
     insights: [
