@@ -457,6 +457,7 @@ export const PROJECTS = [
     tags: ["AI Agent", "Real Estate", "Web Scraping", "Full Stack"],
     tools: ["React", "TypeScript", "Firebase", "Tavily API", "Kimi/Moonshot LLM", "Firestore", "Tailwind"],
     thumbnail: "/case-studies/leverage-ai/thumbnail.png",
+    demoUrl: "https://leverage-ai.ca/",
     team: {
       engineers: 1,
       timeline: "January 2026"
@@ -530,6 +531,7 @@ export const PROJECTS = [
     tags: ["AI", "Audio Analysis", "Speech Coaching", "Full Stack"],
     tools: ["React", "TypeScript", "Firebase", "OpenAI GPT-4o", "Whisper", "Kimi K2.5", "Zustand", "Tailwind"],
     thumbnail: "/case-studies/voiceprep/thumbnail.png",
+    demoUrl: "https://voiceprep-r1.web.app/",
     team: {
       engineers: 1,
       timeline: "February 2026"
@@ -603,6 +605,7 @@ export const PROJECTS = [
     tags: ["Coming Soon"],
     tools: [],
     thumbnail: "/case-studies/flowbricks/thumbnail.png",
+    demoUrl: "https://flowbrick.web.app/",
     team: {
       engineers: 1,
       timeline: "March 2026"

@@ -249,5 +249,39 @@ export const TIMELINE = [
       ],
       caseStudyNote: "Full case study available in Work section"
     }
+  },
+  {
+    year: "2026",
+    title: "0-1 Personal Products",
+    org: "Side Projects",
+    type: "work",
+    track: "0to1",
+    startYear: 2026,
+    endYear: 2026,
+    color: "#EC4899",
+    logo: "personal",
+    summary:
+      "Built and shipped three products from scratch: an AI agent for real estate due diligence, a speech coaching app with multi-model audio analysis, and a workflow automation tool. All solo builds, all live.",
+    tags: ["AI Agent", "Speech AI", "Full Stack", "Firebase"],
+    details: {
+      duration: "Jan - Mar 2026",
+      location: "Vancouver, BC",
+      responsibilities: [
+        "Leverage-AI (Jan 2026): AI agent that generates condo due-diligence reports from an address. 4-stage autonomous pipeline with hybrid regex + LLM extraction, developer cache, and full observability.",
+        "VoicePrep (Feb 2026): Speech coaching app for high-stakes moments. 3-layer analysis pipeline using GPT-4o, Whisper, and Kimi K2.5 for word-level delivery feedback across 6 dimensions.",
+        "FlowBricks (Mar 2026): Workflow automation tool. Currently in progress."
+      ],
+      achievements: [
+        { metric: "3", description: "Products built and shipped in 3 months" },
+        { metric: "~40s", description: "Leverage-AI report generation time at $0.03/report" },
+        { metric: "<15s", description: "VoicePrep analysis time for 2-minute recordings" }
+      ],
+      tools: ["React", "TypeScript", "Firebase", "OpenAI GPT-4o", "Whisper", "Kimi K2.5", "Tavily API", "Firestore", "Tailwind", "Zustand"],
+      links: [
+        { label: "Leverage-AI (Interactive Demo)", url: "https://leverage-ai.ca/" },
+        { label: "VoicePrep (Interactive Demo)", url: "https://voiceprep-r1.web.app/" },
+        { label: "FlowBricks (Interactive Demo)", url: "https://flowbrick.web.app/" }
+      ]
+    }
   }
 ];
