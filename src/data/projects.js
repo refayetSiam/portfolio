@@ -598,30 +598,84 @@ export const PROJECTS = [
       "Cross-session struggling words tracker with IPA pronunciation guides"
     ]
   },
-  // 8. FlowBricks - Coming Soon
+  // 8. FlowBrick - Multi-Agent Knowledge System
   {
     id: "flowbricks",
-    title: "FlowBricks",
+    title: "FlowBrick",
     company: "Side Project",
     role: "Solo Builder",
     productLabel: "In Progress",
     color: "#EC4899",
     accent: "#FCE7F3",
-    tag: "Coming Soon",
-    tags: ["Coming Soon"],
-    tools: [],
-    thumbnail: "/case-studies/flowbricks/thumbnail.png",
+    tag: "AI + Knowledge",
+    tags: ["AI", "Knowledge Graph", "Multi-Agent", "Full Stack"],
+    tools: ["Next.js", "React", "Firebase", "Moonshot Kimi", "Firestore", "Tailwind"],
+    thumbnail: "/case-studies/flowbricks/FlowBrick Home.png",
     demoUrl: "https://flowbrick.web.app/",
     team: {
       engineers: 1,
       timeline: "March 2026"
     },
-    stats: [],
-    description: "Details coming soon.",
-    outcome: "",
-    process: [],
-    sections: [],
-    insights: [],
-    highlights: []
+    stats: [
+      { label: "Memory Tiers", value: "3" },
+      { label: "Block Types", value: "5" },
+      { label: "Canvas Layers", value: "2" }
+    ],
+    description:
+      "A multi-agent knowledge system for PMs managing multiple products. Instead of one forgetful AI, FlowBrick builds a living knowledge graph where every node is a specialist that digests, stores, and retrieves knowledge about one slice of your world. Drop documents, transcripts, or screenshots into any node and they get synthesized into compounding institutional memory.",
+    outcome: "A personal intelligence system with distributed knowledge across nodes, intelligent triage that auto-routes content, deterministic scheduling, and a freeform visual canvas. Knowledge compounds over time instead of evaporating between sessions.",
+    process: [
+      {
+        type: "research",
+        title: "The Amnesia Problem",
+        description: "Every PM tool with AI bolted on has the same flaw: context evaporates. You explain your product once, get a decent answer, and next session you're back to square one. The AI doesn't know your roadmap, your stakeholders, your decisions, or the PRD you uploaded last week. FlowBrick takes a different approach. Instead of one forgetful AI, it builds a living knowledge graph where each node is its own specialist with persistent memory."
+      },
+      {
+        type: "design",
+        title: "Distributed Knowledge Architecture",
+        description: "Every node in the graph is backed by its own institutional memory. Upload a competitive analysis today, drop meeting notes next week, add a customer interview transcript next month. The node synthesizes all of it into a living summary that grows smarter over time. This isn't RAG. There's no vector search hoping to find the right chunk. Each node maintains a curated, AI-generated narrative plus structured key facts, updated through a merge algorithm that preserves what matters and flags contradictions."
+      },
+      {
+        type: "prioritize",
+        title: "Three Tiers of Memory",
+        description: "Institutional Knowledge is the deep, compounding layer. Every node builds its own knowledge base. Cross-node synthesis reveals patterns across your portfolio. Operational Memory is dynamically assembled for each interaction. The system decides what's relevant right now based on your question, your context, and your recent activity. Session Memory is your chat history, automatically compacted when it grows long. Older exchanges get summarized so nothing truly new is lost."
+      },
+      {
+        type: "interviews",
+        title: "Intelligent Triage & Routing",
+        description: "Drop anything into FlowBrick and the triage engine classifies content type, extracts atomic items (action items with effort estimates, decisions, open questions, feature requests), routes everything to the correct node using institutional knowledge, and updates the destination node's memory in the background. Paste a rambling meeting transcript about three different products and FlowBrick pulls out the action items, assigns effort estimates, and routes each one to the right product node. Routing accuracy improves as your knowledge graph grows."
+      }
+    ],
+    sections: [
+      {
+        title: "The Knowledge Graph & AI Companion",
+        content: "The home view is a visual knowledge graph. Each brick represents a product, project, or domain. Nodes like Gordian, DAP, Migration IQ, and AQC are connected by dashed edges showing how they relate. The AI companion (Big Brick) lives in a persistent chat panel on the right. It can create new nodes, answer questions using cross-node knowledge, and route information to the right place. In this view, the user asks Big Brick to create a node for job tracking, and it does.",
+        imageUrl: "/case-studies/flowbricks/FlowBrick Home.png",
+        caption: "Knowledge graph with product nodes and the Big Brick AI companion creating nodes through conversation."
+      },
+      {
+        title: "Node Workspace: Kanban + Connected Data",
+        content: "Clicking into the AQC (Automated Quality Control) node opens a split workspace. On the left, a kanban board with TO DO, IN PROGRESS, and DONE columns tracks work items like 'Add cost benchmarking against historical project data' and 'Build severity scoring for IQ issues.' On the right, a connected node panel shows Migration IQ's notes, folders, and attachments. The AI companion generates kanban boards through conversation and populates them with relevant tasks based on what it knows about the node.",
+        imageUrl: "/case-studies/flowbricks/VisualWorkspace.png",
+        caption: "AQC node workspace with kanban board, connected Migration IQ data panel, and AI-generated tasks."
+      },
+      {
+        title: "Adding Bricks to Your Graph",
+        content: "New nodes are added through the Add Brick modal. Pick a color-coded brick icon, name the node, and choose a type (Product, Custom, or create your own). Each brick you add becomes a new knowledge agent in your graph, connected to its parent node. The brick immediately starts building institutional memory from anything you drop into it.",
+        imageUrl: "/case-studies/flowbricks/FlowBrick Add Bricks.png",
+        caption: "Add Brick modal with color-coded icons, naming, and type selection."
+      }
+    ],
+    insights: [
+      "Merge over regenerate. Knowledge updates are additive merges, not full rebuilds. This preserves historical context and scales cheaper.",
+      "Distributed knowledge across nodes beats cramming everything into one massive prompt. Scales to hundreds of products without degrading quality.",
+      "AI handles judgment calls (priority, grouping). Math handles allocation (time slots, feasibility). No hallucinated calendars."
+    ],
+    highlights: [
+      "Multi-agent knowledge graph where each node maintains its own institutional memory",
+      "3-tier memory system: institutional, operational, and session layers",
+      "Intelligent triage auto-classifies, extracts action items, and routes to correct nodes",
+      "Freeform visual canvas with 5 block types and AI-assisted creation"
+    ]
   }
 ];
