@@ -443,5 +443,176 @@ export const PROJECTS = [
       "Built a unified data model with role-specific dashboards",
       "Real-time inventory alerts solving critical parts stockout issues"
     ]
+  },
+  // 6. Leverage-AI - Condo Due Diligence
+  {
+    id: "leverage-ai",
+    title: "Leverage-AI",
+    company: "Side Project",
+    role: "Solo Builder",
+    productLabel: "Shipped",
+    color: "#10B981",
+    accent: "#D1FAE5",
+    tag: "AI Agent",
+    tags: ["AI Agent", "Real Estate", "Web Scraping", "Full Stack"],
+    tools: ["React", "TypeScript", "Firebase", "Tavily API", "Kimi/Moonshot LLM", "Firestore", "Tailwind"],
+    thumbnail: "/case-studies/leverage-ai/thumbnail.png",
+    team: {
+      engineers: 1,
+      timeline: "January 2026"
+    },
+    stats: [
+      { label: "Report Time", value: "~40s" },
+      { label: "Cost/Report", value: "$0.03" },
+      { label: "Developer Profiles", value: "143" }
+    ],
+    description:
+      "An AI agent that generates comprehensive condo due-diligence reports from just an address. Type in a unit and get comparable sales, price history, developer reputation, neighbourhood risks, fair value estimate, and negotiation strategy. The kind of research a good realtor would do, automated and transparent.",
+    outcome: "Full autonomous pipeline generating investor-grade condo reports in ~40 seconds at $0.03 per report. Every search query, URL, and LLM call is logged and downloadable. No black box.",
+    process: [
+      {
+        type: "research",
+        title: "Why This Exists",
+        description: "Buying a condo in Vancouver is intimidating. Most people trust their realtor blindly because they don't know what questions to ask. This tool gives you the same information a good realtor would research: what similar units sold for, whether the developer has lawsuits, whether strata fees are rising fast, whether there's a social housing project being built next door. It doesn't replace a realtor. It gives you the knowledge to have a better conversation with one."
+      },
+      {
+        type: "design",
+        title: "4-Stage Autonomous Pipeline",
+        description: "This isn't a 'send address to ChatGPT' wrapper. It's a 4-stage pipeline where each stage searches the web, extracts data, validates it, and passes structured results to the next. Stage 1 (Property & Comps, ~15s): constructs search queries across 4 real estate sites, discovers MLS numbers, extracts HTML via headless rendering, runs regex parsers, then conditionally calls LLMs for gaps. Stage 2 (Developer Research, ~10s): checks a curated cache of 143 developer profiles first, skips web searches entirely on cache hit. Stage 3 (Neighbourhood & Risk, ~10s): searches for special levies, development permits, rezoning, and forum signals. Stage 4 (Synthesis, ~5s): cross-validates everything, computes fair value range, generates buy/hold/avoid signal."
+      },
+      {
+        type: "prioritize",
+        title: "Hybrid Extraction: Regex + LLM",
+        description: "V1 was 100% LLM for data extraction, which was unreliable and expensive. Comp data on condos.ca appears in the same HTML structure every time, so regex is faster, cheaper, and deterministic. The LLM only gets called when regex leaves gaps. This dropped Stage 1 costs from ~$0.15 to ~$0.03 per report. Before sending content to the LLM, a custom parser strips navigation, footers, and boilerplate, cutting token usage by ~60%."
+      },
+      {
+        type: "interviews",
+        title: "Data Quality & Observability",
+        description: "Every URL gets a source quality score by domain (BC Assessment = 0.9, condos.ca = 0.7, Reddit = 0.3). Scores feed into confidence calculations and determine how much weight a data point gets in synthesis. MLS cross-referencing catches bad data: if a page returns data for the wrong unit, it flags that MLS and drops all associated pages. Every search query, extraction, and LLM call is logged in a PipelineLog object. Users can download the full log as JSON."
+      }
+    ],
+    sections: [
+      {
+        title: "The Agent Pipeline",
+        content: "The system makes its own decisions about what to search, which URLs to extract, and when to call an LLM vs. when regex is sufficient. Three parallel LLM calls analyze pages grouped by source, then a fourth merge call consolidates everything. Deterministic fields like days-on-market and relist count are computed in code, not by the LLM.",
+        imageUrl: "/case-studies/leverage-ai/pipeline.png",
+        caption: "4-stage autonomous pipeline with timing breakdown per stage."
+      },
+      {
+        title: "Dashboard Intelligence",
+        content: "Separate from the reports, the app pulls live data from Bank of Canada (interest rates) and Statistics Canada (unemployment, CPI, building permits, housing price index) APIs. 20 years of historical data, auto-refreshed hourly. Gives buyers macro context alongside the micro analysis of their specific unit.",
+        imageUrl: "/case-studies/leverage-ai/dashboard.png",
+        caption: "Live economic indicators from Bank of Canada and Statistics Canada APIs."
+      }
+    ],
+    insights: [
+      "Regex-first extraction with LLM fallback cut costs by 80% while improving reliability. Not everything needs AI.",
+      "Caching 143 developer profiles saves an entire pipeline stage per report. Small lookup tables beat expensive API calls.",
+      "Full observability builds trust. Users can download every search query and LLM call as JSON. No black box."
+    ],
+    highlights: [
+      "Built a 4-stage autonomous AI pipeline generating reports in ~40 seconds",
+      "Hybrid regex + LLM extraction reduced per-report cost from $0.15 to $0.03",
+      "Curated 143 developer profiles with fuzzy matching for instant cache hits",
+      "Integrated Bank of Canada and Statistics Canada APIs for live economic data"
+    ]
+  },
+  // 7. VoicePrep - Speech Coaching
+  {
+    id: "voiceprep",
+    title: "VoicePrep",
+    company: "Side Project",
+    role: "Solo Builder",
+    productLabel: "Shipped",
+    color: "#6366F1",
+    accent: "#E0E7FF",
+    tag: "AI + Audio",
+    tags: ["AI", "Audio Analysis", "Speech Coaching", "Full Stack"],
+    tools: ["React", "TypeScript", "Firebase", "OpenAI GPT-4o", "Whisper", "Kimi K2.5", "Zustand", "Tailwind"],
+    thumbnail: "/case-studies/voiceprep/thumbnail.png",
+    team: {
+      engineers: 1,
+      timeline: "February 2026"
+    },
+    stats: [
+      { label: "Analysis Time", value: "<15s" },
+      { label: "Scoring Dims", value: "6" },
+      { label: "AI Layers", value: "3" }
+    ],
+    description:
+      "A speech coaching app for high-stakes moments. Record yourself answering a question, and the app runs your audio through three layers of AI analysis: transcription with confidence scoring, signal extraction (pacing, clarity, filler words), and structured coaching across 6 dimensions. Built for the night before, not the long term.",
+    outcome: "Multi-model analysis pipeline that processes a 2-minute recording in under 15 seconds. Provides word-level feedback on delivery mechanics, per-question coaching rules, and cross-session tracking to measure improvement between takes.",
+    process: [
+      {
+        type: "research",
+        title: "The Gameday Gap",
+        description: "The speech coaching space is full of tools that help you become a better speaker over time. Yoodli, Orai, Poised, SpeakEasy. They track filler words across weeks, give long-term trends, assign exercises. That's fine if your presentation is in 3 months. But what about when it's tomorrow? There's nothing for the person who has a final-round interview in 18 hours and wants to run through their answers 3-4 times tonight with precise feedback between each take. No one owns that last-mile, rapid-iteration loop."
+      },
+      {
+        type: "design",
+        title: "3-Layer Analysis Pipeline",
+        description: "Layer 1: GPT-4o Transcribe converts audio to text and returns per-token log-probabilities. Words the model struggled to recognize (logprob below -1.2) are likely words you mumbled or mispronounced. Whisper runs in parallel to provide word-level timestamps for pacing analysis. Layer 2: Three independent signal extractors run on the results. Pacing analysis calculates WPM in sliding 10-second windows and detects long pauses. Clarity analysis identifies low-confidence words and filler words with smart filtering. A struggling words tracker monitors pronunciation across sessions. Layer 3: All signals feed into Kimi K2.5 for structured coaching."
+      },
+      {
+        type: "prioritize",
+        title: "6-Dimension Coaching",
+        description: "The coaching model scores you across clarity, pacing, vocal delivery, confidence, structure, and conciseness. Every piece of feedback references a specific moment. Not 'try to speak more clearly' but 'at 0:45, you rushed through infrastructure, slow down on the second syllable.' The model also returns your top 3 actions, the highest-impact things to fix before your next attempt. Coaching rules are customizable per question. Want the AI to focus on storytelling for a behavioral question? Want it ruthless about filler words for a sales pitch? You control it."
+      },
+      {
+        type: "interviews",
+        title: "Competitive Positioning",
+        description: "Yoodli and Orai do general speaking improvement over time. Pramp and Interviewing.io give you live mock interviews with scheduling friction and subjective feedback. ChatGPT reviews your content but knows nothing about how you sound. Recording yourself gives you no structured feedback. VoicePrep is the warmup room, not the gym. You open it the night before, drill your specific answers, get machine-precise feedback, re-record, and watch scores climb. Everyone practices out loud before high-stakes moments, but no one had a tool that listens back and tells them exactly what to fix."
+      }
+    ],
+    sections: [
+      {
+        title: "The Analysis Pipeline",
+        content: "Your audio passes through parallel API calls: GPT-4o Transcribe for confidence-scored transcription, Whisper for word-level timestamps, then three signal extractors for pacing, clarity, and struggling words. All of this feeds into the coaching LLM. The pipeline runs client-side with parallel calls, keeping total analysis time under 15 seconds for a 2-minute recording.",
+        imageUrl: "/case-studies/voiceprep/pipeline.png",
+        caption: "Multi-model analysis pipeline: transcription, signal extraction, and AI coaching in parallel."
+      },
+      {
+        title: "Feedback That's Actually Useful",
+        content: "The annotated transcript shows color-coded highlights: red for mumbled words, orange for fillers, blue for long pauses. A WPM chart shows pacing over time with green/red zones. A radar chart gives your 6 scores at a glance. Session history lets you track improvement across attempts on the same question. The struggling words page persists across sessions with IPA pronunciation guides and mouth placement tips.",
+        imageUrl: "/case-studies/voiceprep/feedback.png",
+        caption: "Annotated transcript with word-level highlights, pacing chart, and radar scoring."
+      }
+    ],
+    insights: [
+      "Log-probabilities from transcription models are an underused signal. Low confidence on a word strongly correlates with mumbling or mispronunciation.",
+      "Per-question coaching rules make generic AI feedback specific. A behavioral interview needs different scoring weights than a sales pitch.",
+      "The rapid-iteration loop (record, fix, re-record, compare) matters more than any single analysis. Progress between takes keeps users engaged."
+    ],
+    highlights: [
+      "Built a 3-layer analysis pipeline combining GPT-4o, Whisper, and Kimi K2.5",
+      "Per-token log-probabilities detect mumbled words at the syllable level",
+      "6-dimension scoring with timestamp-referenced, actionable feedback",
+      "Cross-session struggling words tracker with IPA pronunciation guides"
+    ]
+  },
+  // 8. FlowBricks - Coming Soon
+  {
+    id: "flowbricks",
+    title: "FlowBricks",
+    company: "Side Project",
+    role: "Solo Builder",
+    productLabel: "In Progress",
+    color: "#EC4899",
+    accent: "#FCE7F3",
+    tag: "Coming Soon",
+    tags: ["Coming Soon"],
+    tools: [],
+    thumbnail: "/case-studies/flowbricks/thumbnail.png",
+    team: {
+      engineers: 1,
+      timeline: "March 2026"
+    },
+    stats: [],
+    description: "Details coming soon.",
+    outcome: "",
+    process: [],
+    sections: [],
+    insights: [],
+    highlights: []
   }
 ];
